@@ -13,92 +13,98 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#0A0A0A;
-  --surface:#141414;
+  --surface:#131313;
   --elevated:#1A1A1A;
+  --card:#111111;
   --text:#F5F5F5;
   --text2:#8A8A8A;
   --muted:#555;
   --accent:#C41E2A;
   --accent-glow:rgba(196,30,42,0.15);
-  --accent-dim:rgba(196,30,42,0.08);
-  --border:#222;
+  --accent-dim:rgba(196,30,42,0.06);
+  --border:#1e1e1e;
   --border-light:#2a2a2a;
   --font:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-  --radius:12px;
+  --radius:16px;
+  --radius-sm:12px;
 }
 html{scroll-behavior:smooth}
 body{
-  font-family:var(--font);
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.5;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  padding-bottom:90px;
+  font-family:var(--font);background:var(--bg);color:var(--text);
+  line-height:1.5;-webkit-font-smoothing:antialiased;
+  padding-bottom:80px;
   padding-top:env(safe-area-inset-top);
   padding-left:env(safe-area-inset-left);
   padding-right:env(safe-area-inset-right);
+  overflow-x:hidden;
 }
 
 /* ── Header ── */
-.header{text-align:center;padding:36px 20px 24px}
-.header .wordmark{font-family:'Great Vibes',cursive;font-size:52px;color:var(--accent);line-height:1.1;margin-bottom:4px}
-.header .wordmark-sub{font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--text);font-weight:300;margin-bottom:4px;opacity:0.7}
-.header .subtitle{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text2);margin-bottom:14px}
-.header .contact{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text2);text-decoration:none;border:1px solid var(--border);border-radius:20px;padding:6px 14px;transition:border-color .2s}
+.header{text-align:center;padding:32px 20px 20px}
+.header .wordmark{font-family:'Great Vibes',cursive;font-size:52px;color:var(--accent);line-height:1.1;margin-bottom:2px}
+.header .wordmark-sub{font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--text);font-weight:300;opacity:0.65;margin-bottom:2px}
+.header .subtitle{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--text2);margin-bottom:14px}
+.header .contact{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--text2);text-decoration:none;border:1px solid var(--border);border-radius:20px;padding:5px 12px;transition:border-color .2s}
 .header .contact:hover{border-color:var(--accent)}
-.header .contact svg{width:14px;height:14px;fill:var(--accent)}
+.header .contact svg{width:13px;height:13px;fill:var(--accent)}
 
 /* ── Search ── */
-.search-wrap{max-width:480px;margin:0 auto 8px;padding:0 16px}
-.search-input{
-  width:100%;padding:10px 14px 10px 38px;
-  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
-  color:var(--text);font-size:14px;font-family:var(--font);outline:none;
-  transition:border-color .2s;
-}
+.search-wrap{max-width:500px;margin:0 auto 16px;padding:0 16px;position:relative}
+.search-input{width:100%;padding:11px 14px 11px 40px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-size:14px;font-family:var(--font);outline:none;transition:border-color .2s}
 .search-input:focus{border-color:var(--accent)}
 .search-input::placeholder{color:var(--muted)}
-.search-wrap{position:relative}
 .search-wrap svg{position:absolute;left:28px;top:50%;transform:translateY(-50%);width:16px;height:16px;fill:var(--muted);pointer-events:none}
 
-/* ── Accordion Menu ── */
-.menu{max-width:480px;margin:0 auto;padding:8px 16px}
+/* ── Category Grid ── */
+.grid{
+  max-width:500px;margin:0 auto;padding:0 16px;
+  display:grid;grid-template-columns:repeat(2,1fr);gap:10px;
+}
+.card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:22px 16px 18px;cursor:pointer;position:relative;overflow:hidden;
+  transition:transform .15s,border-color .2s,background .2s;
+  display:flex;flex-direction:column;align-items:flex-start;gap:6px;
+  min-height:100px;
+}
+.card:hover{border-color:var(--border-light);background:var(--surface)}
+.card:active{transform:scale(0.97)}
+.card-icon{font-size:24px;margin-bottom:2px;filter:grayscale(0.2)}
+.card-name{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text);line-height:1.3}
+.card-count{font-size:10.5px;color:var(--accent);font-weight:600}
+.card-line{position:absolute;bottom:0;left:16px;right:16px;height:2px;background:var(--accent);opacity:0;transition:opacity .2s}
+.card:hover .card-line{opacity:1}
+.card-badge{
+  position:absolute;top:10px;right:10px;
+  background:var(--accent);color:#fff;font-size:10px;font-weight:700;
+  width:20px;height:20px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  display:none;
+}
+.card-badge.show{display:flex}
 
-.accordion{margin-bottom:6px;border-radius:var(--radius);overflow:hidden;background:var(--surface);border:1px solid var(--border)}
-.accordion-header{
+/* ── Category Sheet (slides up from bottom) ── */
+.sheet-overlay{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.55);display:none;opacity:0;transition:opacity .2s}
+.sheet-overlay.open{display:block;opacity:1}
+.sheet{
+  position:fixed;bottom:0;left:0;right:0;z-index:301;
+  background:var(--surface);
+  border-top-left-radius:24px;border-top-right-radius:24px;
+  max-height:85vh;display:flex;flex-direction:column;
+  transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,.35,1.02);
+}
+.sheet.open{transform:translateY(0)}
+.sheet-handle{width:36px;height:4px;border-radius:2px;background:var(--border-light);margin:10px auto 0}
+.sheet-header{
   display:flex;align-items:center;justify-content:space-between;
-  padding:16px 18px;cursor:pointer;user-select:none;
-  transition:background .15s;
+  padding:14px 20px 12px;border-bottom:1px solid var(--border);flex-shrink:0;
 }
-.accordion-header:hover{background:var(--elevated)}
-.accordion-header:active{background:var(--border)}
-.accordion-title{
-  font-size:13px;font-weight:600;letter-spacing:2.5px;
-  text-transform:uppercase;color:var(--text);
-}
-.accordion-meta{display:flex;align-items:center;gap:10px}
-.accordion-count{
-  font-size:11px;color:var(--accent);
-  background:var(--accent-dim);
-  padding:2px 8px;border-radius:10px;
-  font-weight:600;
-}
-.accordion-chevron{
-  width:20px;height:20px;fill:var(--text2);
-  transition:transform .25s ease;flex-shrink:0;
-}
-.accordion.open .accordion-chevron{transform:rotate(180deg)}
+.sheet-title{font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text)}
+.sheet-close{background:none;border:none;color:var(--text2);font-size:22px;cursor:pointer;padding:4px 8px;line-height:1}
+.sheet-body{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:4px 20px 24px;flex:1}
 
-.accordion-body{
-  max-height:0;overflow:hidden;
-  transition:max-height .3s ease;
-}
-.accordion.open .accordion-body{max-height:none}
-.accordion-body-inner{padding:0 18px 12px}
-
-/* ── Item Rows ── */
-.item{padding:12px 0;border-bottom:1px solid var(--border)}
+/* ── Item Rows inside sheet ── */
+.item{padding:13px 0;border-bottom:1px solid var(--border)}
 .item:last-child{border-bottom:none}
 .item-main{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
 .item-info{flex:1;min-width:0}
@@ -108,7 +114,7 @@ body{
 .item-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
 .item-price{font-size:14px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums;white-space:nowrap}
 
-/* ── Add Button ── */
+/* ── Add / Qty buttons ── */
 .add-btn{
   width:30px;height:30px;border-radius:50%;border:1.5px solid var(--accent);
   background:transparent;color:var(--accent);font-size:18px;
@@ -117,8 +123,6 @@ body{
 }
 .add-btn:hover{background:var(--accent);color:#fff}
 .add-btn:active{transform:scale(0.9)}
-
-/* ── Qty Controls (replaces + when in cart) ── */
 .qty-ctrl{display:flex;align-items:center;gap:0;flex-shrink:0}
 .qty-btn{
   width:28px;height:28px;border-radius:50%;border:1.5px solid var(--border-light);
@@ -131,10 +135,7 @@ body{
 .qty-val{width:28px;text-align:center;font-size:13px;font-weight:600;color:var(--text)}
 
 /* ── Variant rows ── */
-.variant{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:6px 0 6px 12px;border-left:1px solid var(--border);margin-top:6px;gap:8px;
-}
+.variant{display:flex;align-items:center;justify-content:space-between;padding:6px 0 6px 12px;border-left:1px solid var(--border);margin-top:6px;gap:8px}
 .variant-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px}
 .variant-right{display:flex;align-items:center;gap:10px}
 .variant-price{font-size:13px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums}
@@ -144,24 +145,19 @@ body{
   position:fixed;bottom:0;left:0;right:0;z-index:200;
   background:var(--surface);border-top:1px solid var(--border);
   padding:10px 16px calc(10px + env(safe-area-inset-bottom));
-  display:flex;align-items:center;gap:12px;
-  max-width:100%;
+  display:flex;align-items:center;gap:10px;
 }
 .cart-toggle{
   flex:1;display:flex;align-items:center;justify-content:space-between;
-  background:var(--elevated);border:1px solid var(--border);border-radius:var(--radius);
+  background:var(--elevated);border:1px solid var(--border);border-radius:var(--radius-sm);
   padding:10px 14px;cursor:pointer;min-width:0;
 }
 .cart-toggle-left{display:flex;align-items:center;gap:8px}
-.cart-badge{
-  background:var(--accent);color:#fff;font-size:11px;font-weight:700;
-  width:22px;height:22px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-}
+.cart-badge{background:var(--accent);color:#fff;font-size:11px;font-weight:700;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center}
 .cart-label{font-size:13px;color:var(--text2);white-space:nowrap}
 .cart-total{font-size:14px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
 .pay-btn{
-  background:var(--accent);color:#fff;border:none;border-radius:var(--radius);
+  background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);
   padding:12px 20px;font-family:var(--font);font-size:12px;font-weight:700;
   letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;white-space:nowrap;
   box-shadow:0 4px 16px rgba(196,30,42,0.3);transition:transform .1s,box-shadow .1s;
@@ -171,32 +167,21 @@ body{
 .bottom-bar.empty .pay-btn{opacity:0.4;pointer-events:none}
 
 /* ── Cart Drawer ── */
-.cart-overlay{
-  position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.6);
-  display:none;opacity:0;transition:opacity .2s;
-}
+.cart-overlay{position:fixed;inset:0;z-index:400;background:rgba(0,0,0,0.6);display:none;opacity:0;transition:opacity .2s}
 .cart-overlay.open{display:block;opacity:1}
 .cart-drawer{
-  position:fixed;bottom:0;left:0;right:0;z-index:301;
-  background:var(--surface);border-top-left-radius:20px;border-top-right-radius:20px;
+  position:fixed;bottom:0;left:0;right:0;z-index:401;
+  background:var(--surface);border-top-left-radius:24px;border-top-right-radius:24px;
   max-height:70vh;display:flex;flex-direction:column;
-  transform:translateY(100%);transition:transform .3s ease;
+  transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,.35,1.02);
 }
 .cart-drawer.open{transform:translateY(0)}
-.cart-drawer-header{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:16px 20px 12px;border-bottom:1px solid var(--border);flex-shrink:0;
-}
+.cart-drawer-handle{width:36px;height:4px;border-radius:2px;background:var(--border-light);margin:10px auto 0}
+.cart-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 12px;border-bottom:1px solid var(--border);flex-shrink:0}
 .cart-drawer-title{font-size:15px;font-weight:600;color:var(--text)}
-.cart-clear{
-  font-size:12px;color:var(--accent);background:none;border:none;
-  cursor:pointer;font-family:var(--font);padding:4px 8px;
-}
+.cart-clear{font-size:12px;color:var(--accent);background:none;border:none;cursor:pointer;font-family:var(--font);padding:4px 8px}
 .cart-drawer-body{overflow-y:auto;padding:8px 20px 20px;flex:1}
-.cart-item{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:10px 0;border-bottom:1px solid var(--border);gap:10px;
-}
+.cart-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);gap:10px}
 .cart-item:last-child{border-bottom:none}
 .cart-item-info{flex:1;min-width:0}
 .cart-item-name{font-size:13.5px;font-weight:500;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -205,10 +190,10 @@ body{
 .cart-item-total{font-size:13px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums;min-width:40px;text-align:right}
 .cart-empty-msg{text-align:center;padding:32px 0;color:var(--muted);font-size:13px}
 
-/* ── Modal ── */
+/* ── Checkout Modal ── */
 .modal-overlay{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.85);display:none;opacity:0;transition:opacity .25s ease}
 .modal-overlay.open{display:flex;opacity:1;align-items:stretch;justify-content:center}
-.modal-close{position:absolute;top:12px;right:16px;z-index:1001;background:var(--elevated);border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.modal-close{position:absolute;top:12px;right:16px;z-index:1001;background:var(--elevated);border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .modal-close:hover{background:var(--border)}
 .modal-iframe{width:100%;height:100%;border:none;margin-top:56px}
 
@@ -217,11 +202,13 @@ body{
 .no-results.show{display:block}
 
 /* ── Desktop ── */
-@media(min-width:481px){
-  body{padding-bottom:100px}
-  .menu{padding:8px 24px}
+@media(min-width:500px){
+  .grid{grid-template-columns:repeat(3,1fr);max-width:600px}
   .bottom-bar{justify-content:center}
   .bottom-bar>*{max-width:440px}
+}
+@media(min-width:768px){
+  .grid{grid-template-columns:repeat(4,1fr);max-width:740px}
 }
 </style>
 </head>
@@ -244,9 +231,20 @@ body{
   <input type="text" class="search-input" id="searchInput" placeholder="Search the menu...">
 </div>
 
-<!-- ═══ ACCORDION MENU ═══ -->
-<main class="menu" id="menuContainer"></main>
+<!-- ═══ CATEGORY GRID ═══ -->
+<div class="grid" id="grid"></div>
 <div class="no-results" id="noResults">No items match your search.</div>
+
+<!-- ═══ CATEGORY SHEET ═══ -->
+<div class="sheet-overlay" id="sheetOverlay"></div>
+<div class="sheet" id="sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-header">
+    <span class="sheet-title" id="sheetTitle"></span>
+    <button class="sheet-close" id="sheetClose">&times;</button>
+  </div>
+  <div class="sheet-body" id="sheetBody"></div>
+</div>
 
 <!-- ═══ BOTTOM BAR ═══ -->
 <div class="bottom-bar empty" id="bottomBar">
@@ -263,6 +261,7 @@ body{
 <!-- ═══ CART DRAWER ═══ -->
 <div class="cart-overlay" id="cartOverlay"></div>
 <div class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer-handle"></div>
   <div class="cart-drawer-header">
     <span class="cart-drawer-title">Your Order</span>
     <button class="cart-clear" id="cartClear">Clear All</button>
@@ -280,7 +279,7 @@ body{
 (function(){
 /* ═══ MENU DATA ═══ */
 var MENU=[
-{cat:"Cocktail",count:15,items:[
+{cat:"Cocktail",icon:"🍸",items:[
 {n:"Cuba",d:"Dark rum with lime juice & coke",p:300},
 {n:"Scarlet",d:"Campari with orange juice & champagne",p:300},
 {n:"Between the Sheets",d:"White rum, cognac & orange liqueur",p:300},
@@ -297,19 +296,19 @@ var MENU=[
 {n:"Margarita",d:"Tequila triple sec, lemon juice",p:300},
 {n:"Tequila Sunrise",d:"Tequila with orange juice & grenadine syrup",p:300}
 ]},
-{cat:"Mocktails",count:4,items:[
+{cat:"Mocktails",icon:"🧃",items:[
 {n:"Cosmopolitan",d:"Triple sec, cranberry juice",p:300},
 {n:"Chapman",p:300},
 {n:"Margarita",d:"Triple sec, lemon juice",p:300},
 {n:"Caipirinha",d:"Lime & brown sugar",p:300}
 ]},
-{cat:"Gin",count:4,items:[
+{cat:"Gin",icon:"🫒",items:[
 {n:"Tanqueray Dry",v:[{l:"Shot",p:200},{l:"Bottle",p:3000}]},
 {n:"Bombay Sapphire",v:[{l:"Shot",p:200},{l:"Bottle",p:3000}]},
 {n:"Gordon's",v:[{l:"Shot",p:200},{l:"Bottle",p:3000}]},
 {n:"Dawa",d:"White rum, cognac & orange liqueur",p:300}
 ]},
-{cat:"Shots",count:9,items:[
+{cat:"Shots",icon:"🥃",items:[
 {n:"Irish Flag",d:"Green mint cream",p:200},
 {n:"Mad Dog",d:"Raspberry syrup with vodka & dash tabasco",p:200},
 {n:"B-52",d:"Coffee liqueur with irish cream & orange liqueur",p:200},
@@ -320,36 +319,29 @@ var MENU=[
 {n:"Cranberry Cookie",d:"Cranberry juice with disaronno",p:200},
 {n:"Kamikaze",d:"Vodka with orange liqueur & dash of lime juice",p:200}
 ]},
-{cat:"Tequila",count:5,items:[
+{cat:"Tequila",icon:"🌵",items:[
 {n:"Jose Cuervo Gold",v:[{l:"Shot",p:200},{l:"Bottle",p:5000}]},
 {n:"Jose Cuervo Silver",v:[{l:"Shot",p:200},{l:"Bottle",p:5000}]},
 {n:"Patrón Silver",v:[{l:"Shot",p:200},{l:"Bottle",p:5000}]},
 {n:"Patrón Reposado",v:[{l:"Shot",p:200},{l:"Bottle",p:5000}]},
 {n:"Patrón Añejo",v:[{l:"Shot",p:200},{l:"Bottle",p:5000}]}
 ]},
-{cat:"Liqueurs",count:14,items:[
-{n:"Grandmaster",s:"Single shot",p:200},
-{n:"Tia Maria",s:"Single shot",p:200},
-{n:"Southern Comfort",s:"Single shot",p:200},
-{n:"Disaronno",s:"Single shot",p:200},
-{n:"Malibu",s:"Single shot",p:200},
-{n:"Drambuie",s:"Single shot",p:200},
-{n:"Amaretto",s:"Single shot",p:200},
-{n:"Amarula",s:"Single shot",p:200},
+{cat:"Liqueurs",icon:"🍯",items:[
+{n:"Grandmaster",s:"Single shot",p:200},{n:"Tia Maria",s:"Single shot",p:200},
+{n:"Southern Comfort",s:"Single shot",p:200},{n:"Disaronno",s:"Single shot",p:200},
+{n:"Malibu",s:"Single shot",p:200},{n:"Drambuie",s:"Single shot",p:200},
+{n:"Amaretto",s:"Single shot",p:200},{n:"Amarula",s:"Single shot",p:200},
 {n:"Baileys",v:[{l:"Shot",p:200},{l:"Bottle",p:2500}]},
-{n:"Jägermeister",s:"Single shot",p:200},
-{n:"Cointreau",s:"Single shot",p:200},
-{n:"Sambuca",s:"Single shot",p:200},
-{n:"Frangelico",s:"Single shot",p:200},
+{n:"Jägermeister",s:"Single shot",p:200},{n:"Cointreau",s:"Single shot",p:200},
+{n:"Sambuca",s:"Single shot",p:200},{n:"Frangelico",s:"Single shot",p:200},
 {n:"Limoncello",s:"Single shot",p:200}
 ]},
-{cat:"Aperitif",count:4,items:[
-{n:"Martini Bianco",s:"Single shot",p:200},
-{n:"Martini Rosso",s:"Single shot",p:200},
+{cat:"Aperitif",icon:"🍹",items:[
+{n:"Martini Bianco",s:"Single shot",p:200},{n:"Martini Rosso",s:"Single shot",p:200},
 {n:"Martini Dry",s:"Single shot",p:200},
 {n:"Campari",v:[{l:"Shot",p:200},{l:"Bottle",p:2500}]}
 ]},
-{cat:"Brandy",count:7,items:[
+{cat:"Brandy",icon:"🥂",items:[
 {n:"Hennessy VS",v:[{l:"Shot",p:250},{l:"Bottle",p:6000}]},
 {n:"Hennessy VSOP",v:[{l:"Shot",p:350},{l:"Bottle",p:6500}]},
 {n:"Hennessy XO",v:[{l:"Bottle",p:7000}]},
@@ -358,13 +350,13 @@ var MENU=[
 {n:"Courvoisier XO",v:[{l:"Bottle",p:6000}]},
 {n:"Rémy Martin VSOP",v:[{l:"Shot",p:400},{l:"Bottle",p:7000}]}
 ]},
-{cat:"Vodka",count:4,items:[
+{cat:"Vodka",icon:"🧊",items:[
 {n:"Absolut",v:[{l:"Shot",p:200},{l:"Bottle",p:3000}]},
 {n:"Grey Goose",v:[{l:"Shot",p:250},{l:"Bottle",p:4500}]},
 {n:"Belvedere",v:[{l:"Bottle",p:4500}]},
 {n:"Smirnoff Red",v:[{l:"Bottle",p:2750}]}
 ]},
-{cat:"Whiskey",count:21,items:[
+{cat:"Whiskey",icon:"🥃",items:[
 {n:"Teacher's",v:[{l:"Bottle",p:2500}]},
 {n:"J&B",v:[{l:"Shot",p:250},{l:"Bottle",p:2750}]},
 {n:"J&B 15yr",v:[{l:"Shot",p:250},{l:"Bottle",p:2750}]},
@@ -387,18 +379,14 @@ var MENU=[
 {n:"Glenfiddich 21yr",v:[{l:"Bottle",p:10000}]},
 {n:"JW Blue Label",v:[{l:"Bottle",p:12000}]}
 ]},
-{cat:"Champagne",count:9,items:[
-{n:"Mumm Brut",s:"Bottle",p:3000},
-{n:"Mumm Rosé",s:"Bottle",p:3500},
-{n:"Laurent Perrier Rosé",s:"Bottle",p:4000},
-{n:"Laurent Perrier Brut",s:"Bottle",p:4500},
-{n:"Moët & Chandon Brut",s:"Bottle",p:5000},
-{n:"Moët & Chandon Rosé",s:"Bottle",p:5000},
-{n:"Moët Ice",s:"Bottle",p:5000},
-{n:"Dom Pérignon Brut",s:"Bottle",p:10000},
+{cat:"Champagne",icon:"🍾",items:[
+{n:"Mumm Brut",s:"Bottle",p:3000},{n:"Mumm Rosé",s:"Bottle",p:3500},
+{n:"Laurent Perrier Rosé",s:"Bottle",p:4000},{n:"Laurent Perrier Brut",s:"Bottle",p:4500},
+{n:"Moët & Chandon Brut",s:"Bottle",p:5000},{n:"Moët & Chandon Rosé",s:"Bottle",p:5000},
+{n:"Moët Ice",s:"Bottle",p:5000},{n:"Dom Pérignon Brut",s:"Bottle",p:10000},
 {n:"Dom Pérignon Rosé",s:"Bottle",p:12000}
 ]},
-{cat:"Red Wine",count:7,items:[
+{cat:"Red Wine",icon:"🍷",items:[
 {n:"Nederburg Merlot",v:[{l:"Glass",p:200},{l:"Bottle",p:1500}]},
 {n:"Nederburg Cabernet",v:[{l:"Glass",p:200},{l:"Bottle",p:1500}]},
 {n:"Nederburg Baronne",v:[{l:"Glass",p:200},{l:"Bottle",p:1500}]},
@@ -407,189 +395,180 @@ var MENU=[
 {n:"Bordeaux Supérieur",v:[{l:"Glass",p:200},{l:"Bottle",p:1500}]},
 {n:"Scarlet",s:"Bottle",p:1500}
 ]},
-{cat:"White Wine",count:4,items:[
+{cat:"White Wine",icon:"🥂",items:[
 {n:"Nederburg Chardonnay",v:[{l:"Glass",p:200},{l:"Bottle",p:1500}]},
 {n:"Nederburg Sauvignon Blanc",v:[{l:"Glass",p:200},{l:"Bottle",p:1500}]},
 {n:"Château Kefraya Blanc de Blanc",s:"Bottle",p:1500},
 {n:"Bordeaux Sauvignon",s:"Bottle",p:1500}
 ]},
-{cat:"Rosé Wine",count:3,items:[
+{cat:"Rosé Wine",icon:"🌸",items:[
 {n:"Nederburg Rosé",v:[{l:"Glass",p:200},{l:"Bottle",p:1500}]},
 {n:"Château Kefraya Rosé 2012",s:"Bottle",p:1500},
 {n:"Bordeaux Rosé",s:"Bottle",p:1500}
 ]},
-{cat:"Sparkling Wine",count:1,items:[
+{cat:"Sparkling Wine",icon:"✨",items:[
 {n:"Prosecco",s:"Bottle",p:2000}
 ]},
-{cat:"Soft Drinks & Juice",count:12,items:[
+{cat:"Soft Drinks",icon:"🥤",items:[
 {n:"Water",p:20},{n:"Coke / Fanta / Sprite",p:60},{n:"Soda",p:70},
 {n:"Orange Juice",p:70},{n:"Apple Juice",p:70},{n:"Cranberry Juice",p:70},
 {n:"Pineapple Juice",p:70},{n:"Tomato Juice",p:70},{n:"Tonic",p:70},
 {n:"Diet Coke",p:70},{n:"Perrier",p:100},{n:"Box Juice",p:300}
 ]},
-{cat:"Energy Drinks",count:2,items:[
+{cat:"Energy Drinks",icon:"⚡",items:[
 {n:"Atomic",p:100},{n:"Red Bull",p:120}
 ]}
 ];
 
-/* ═══ CART STATE ═══ */
-var openAccordions={};
+/* ═══ CART ═══ */
 var cart=[];
-function cartKey(name,variant){return name+'|'+(variant||'')}
-function findCart(name,variant){var k=cartKey(name,variant);return cart.find(function(c){return c.key===k})}
-function addToCart(name,price,variant){
-  var c=findCart(name,variant);
-  if(c){c.qty++}else{cart.push({key:cartKey(name,variant),name:name,variant:variant||'',price:price,qty:1})}
-  updateUI();
-}
-function removeFromCart(name,variant){
-  var c=findCart(name,variant);
-  if(c){c.qty--;if(c.qty<=0)cart=cart.filter(function(x){return x!==c})}
-  updateUI();
-}
-function getQty(name,variant){var c=findCart(name,variant);return c?c.qty:0}
+function ck(n,v){return n+'|'+(v||'')}
+function fc(n,v){var k=ck(n,v);return cart.find(function(c){return c.key===k})}
+function addToCart(n,p,v){var c=fc(n,v);if(c)c.qty++;else cart.push({key:ck(n,v),name:n,variant:v||'',price:p,qty:1});updateAll()}
+function rmFromCart(n,v){var c=fc(n,v);if(c){c.qty--;if(c.qty<=0)cart=cart.filter(function(x){return x!==c})}updateAll()}
+function getQty(n,v){var c=fc(n,v);return c?c.qty:0}
+function catQty(cat){var t=0;cat.items.forEach(function(it){if(it.v)it.v.forEach(function(vr){t+=getQty(it.n,vr.l)});else t+=getQty(it.n,'')});return t}
 function cartCount(){return cart.reduce(function(s,c){return s+c.qty},0)}
 function cartTotal(){return cart.reduce(function(s,c){return s+c.qty*c.price},0)}
-function clearCart(){cart=[];updateUI()}
+function clearCart(){cart=[];updateAll()}
 function fmt(n){return n.toLocaleString('en-US')}
+function esc(s){if(!s)return'';var d=document.createElement('div');d.textContent=s;return d.innerHTML}
 
-/* ═══ RENDER MENU ═══ */
-var container=document.getElementById('menuContainer');
+/* ═══ RENDER GRID ═══ */
+var grid=document.getElementById('grid');
+var currentSheet=null;
 
-function renderMenu(filter){
-  container.innerHTML='';
-  var anyVisible=false;
+function renderGrid(filter){
+  grid.innerHTML='';
+  var any=false;
   MENU.forEach(function(cat,ci){
     var filtered=cat.items;
     if(filter){
       var q=filter.toLowerCase();
-      filtered=cat.items.filter(function(it){
-        return it.n.toLowerCase().indexOf(q)!==-1||(it.d&&it.d.toLowerCase().indexOf(q)!==-1)||(it.s&&it.s.toLowerCase().indexOf(q)!==-1);
-      });
+      filtered=cat.items.filter(function(it){return it.n.toLowerCase().indexOf(q)!==-1||(it.d&&it.d.toLowerCase().indexOf(q)!==-1)});
     }
     if(filtered.length===0)return;
-    anyVisible=true;
-    var acc=document.createElement('div');
-    acc.className='accordion'+((filter||openAccordions[cat.cat])?' open':'');
-    acc.innerHTML='<div class="accordion-header"><span class="accordion-title">'+esc(cat.cat)+'</span><div class="accordion-meta"><span class="accordion-count">'+filtered.length+' item'+(filtered.length!==1?'s':'')+'</span><svg class="accordion-chevron" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg></div></div>';
-    var body=document.createElement('div');
-    body.className='accordion-body';
-    var inner=document.createElement('div');
-    inner.className='accordion-body-inner';
-
-    filtered.forEach(function(it,ii){
-      var itemEl=document.createElement('div');
-      itemEl.className='item';
-      if(it.v){
-        // Multi-variant item
-        var h='<div class="item-info"><span class="item-name">'+esc(it.n)+'</span>';
-        if(it.d)h+='<div class="item-desc">'+esc(it.d)+'</div>';
-        h+='</div>';
-        itemEl.innerHTML='<div class="item-main">'+h+'</div>';
-        it.v.forEach(function(vr){
-          var vEl=document.createElement('div');
-          vEl.className='variant';
-          var qty=getQty(it.n,vr.l);
-          vEl.innerHTML='<span class="variant-label">'+esc(vr.l)+'</span><div class="variant-right"><span class="variant-price">'+fmt(vr.p)+'</span>'+(qty>0?qtyHtml(it.n,vr.l,qty):addBtnHtml(it.n,vr.p,vr.l))+'</div>';
-          itemEl.appendChild(vEl);
-        });
-      } else {
-        // Simple item
-        var qty=getQty(it.n,'');
-        var h='<div class="item-main"><div class="item-info"><span class="item-name">'+esc(it.n)+'</span>';
-        if(it.d)h+='<div class="item-desc">'+esc(it.d)+'</div>';
-        if(it.s)h+='<div class="item-serving">'+esc(it.s)+'</div>';
-        h+='</div><div class="item-right"><span class="item-price">'+fmt(it.p)+'</span>'+(qty>0?qtyHtml(it.n,'',qty):addBtnHtml(it.n,it.p,''))+'</div></div>';
-        itemEl.innerHTML=h;
-      }
-      inner.appendChild(itemEl);
-    });
-
-    body.appendChild(inner);
-    acc.appendChild(body);
-    container.appendChild(acc);
-
-    // Accordion toggle
-    (function(a,name){
-      a.querySelector('.accordion-header').addEventListener('click',function(){
-        a.classList.toggle('open');
-        openAccordions[name]=a.classList.contains('open');
-      });
-    })(acc,cat.cat);
+    any=true;
+    var cq=catQty(cat);
+    var card=document.createElement('div');
+    card.className='card';
+    card.innerHTML='<span class="card-icon">'+cat.icon+'</span><span class="card-name">'+esc(cat.cat)+'</span><span class="card-count">'+filtered.length+' item'+(filtered.length!==1?'s':'')+'</span><div class="card-line"></div><div class="card-badge'+(cq>0?' show':'')+'">'+cq+'</div>';
+    card.addEventListener('click',function(){openSheet(ci,filter)});
+    grid.appendChild(card);
   });
-  document.getElementById('noResults').className='no-results'+(anyVisible?'':' show');
+  document.getElementById('noResults').className='no-results'+(any?'':' show');
 }
 
-function esc(s){if(!s)return'';var d=document.createElement('div');d.textContent=s;return d.innerHTML}
-function addBtnHtml(name,price,variant){return '<button class="add-btn" data-name="'+esc(name)+'" data-price="'+price+'" data-variant="'+esc(variant||'')+'">+</button>'}
-function qtyHtml(name,variant,qty){return '<div class="qty-ctrl"><button class="qty-btn qty-minus" data-name="'+esc(name)+'" data-variant="'+esc(variant||'')+'">−</button><span class="qty-val">'+qty+'</span><button class="qty-btn qty-plus" data-name="'+esc(name)+'" data-variant="'+esc(variant||'')+'">+</button></div>'}
+/* ═══ SHEET ═══ */
+var sheet=document.getElementById('sheet');
+var sheetOverlay=document.getElementById('sheetOverlay');
+var sheetBody=document.getElementById('sheetBody');
+var sheetTitle=document.getElementById('sheetTitle');
+
+function openSheet(ci,filter){
+  var cat=MENU[ci];
+  currentSheet=ci;
+  var items=cat.items;
+  if(filter){var q=filter.toLowerCase();items=items.filter(function(it){return it.n.toLowerCase().indexOf(q)!==-1||(it.d&&it.d.toLowerCase().indexOf(q)!==-1)})}
+  sheetTitle.textContent=cat.cat;
+  renderSheetItems(items);
+  sheet.classList.add('open');
+  sheetOverlay.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function renderSheetItems(items){
+  sheetBody.innerHTML='';
+  items.forEach(function(it){
+    var el=document.createElement('div');
+    el.className='item';
+    if(it.v){
+      var h='<div class="item-main"><div class="item-info"><span class="item-name">'+esc(it.n)+'</span>';
+      if(it.d)h+='<div class="item-desc">'+esc(it.d)+'</div>';
+      h+='</div></div>';
+      el.innerHTML=h;
+      it.v.forEach(function(vr){
+        var ve=document.createElement('div');ve.className='variant';
+        var q=getQty(it.n,vr.l);
+        ve.innerHTML='<span class="variant-label">'+esc(vr.l)+'</span><div class="variant-right"><span class="variant-price">'+fmt(vr.p)+'</span>'+(q>0?qh(it.n,vr.l,q):ab(it.n,vr.p,vr.l))+'</div>';
+        el.appendChild(ve);
+      });
+    }else{
+      var q=getQty(it.n,'');
+      el.innerHTML='<div class="item-main"><div class="item-info"><span class="item-name">'+esc(it.n)+'</span>'+(it.d?'<div class="item-desc">'+esc(it.d)+'</div>':'')+(it.s?'<div class="item-serving">'+esc(it.s)+'</div>':'')+'</div><div class="item-right"><span class="item-price">'+fmt(it.p)+'</span>'+(q>0?qh(it.n,'',q):ab(it.n,it.p,''))+'</div></div>';
+    }
+    sheetBody.appendChild(el);
+  });
+}
+
+function ab(n,p,v){return '<button class="add-btn" data-n="'+esc(n)+'" data-p="'+p+'" data-v="'+esc(v||'')+'">+</button>'}
+function qh(n,v,q){return '<div class="qty-ctrl"><button class="qty-btn qty-minus" data-n="'+esc(n)+'" data-v="'+esc(v||'')+'">−</button><span class="qty-val">'+q+'</span><button class="qty-btn qty-plus" data-n="'+esc(n)+'" data-v="'+esc(v||'')+'">+</button></div>'}
+
+function closeSheet(){
+  sheet.classList.remove('open');sheetOverlay.classList.remove('open');
+  document.body.style.overflow='';currentSheet=null;
+}
+document.getElementById('sheetClose').addEventListener('click',closeSheet);
+sheetOverlay.addEventListener('click',closeSheet);
 
 /* ═══ EVENT DELEGATION ═══ */
 document.addEventListener('click',function(e){
   var t=e.target;
-  if(t.classList.contains('add-btn')){
-    addToCart(t.dataset.name,parseInt(t.dataset.price),t.dataset.variant);
-  }else if(t.classList.contains('qty-plus')){
-    addToCart(t.dataset.name,0,t.dataset.variant);
-  }else if(t.classList.contains('qty-minus')){
-    removeFromCart(t.dataset.name,t.dataset.variant);
-  }
+  if(t.classList.contains('add-btn')){addToCart(t.dataset.n,parseInt(t.dataset.p),t.dataset.v)}
+  else if(t.classList.contains('qty-plus')){addToCart(t.dataset.n,0,t.dataset.v)}
+  else if(t.classList.contains('qty-minus')){rmFromCart(t.dataset.n,t.dataset.v)}
 });
 
-/* ═══ UPDATE UI ═══ */
-function updateUI(){
+/* ═══ UPDATE ALL ═══ */
+function updateAll(){
   var count=cartCount(),total=cartTotal();
   document.getElementById('cartBadge').textContent=count;
   document.getElementById('cartTotalBottom').textContent=fmt(total)+' LE';
   document.getElementById('bottomBar').className='bottom-bar'+(count===0?' empty':'');
-  renderMenu(document.getElementById('searchInput').value);
+  renderGrid(document.getElementById('searchInput').value);
+  // Re-render sheet if open
+  if(currentSheet!==null){
+    var cat=MENU[currentSheet];var filter=document.getElementById('searchInput').value;
+    var items=cat.items;
+    if(filter){var q=filter.toLowerCase();items=items.filter(function(it){return it.n.toLowerCase().indexOf(q)!==-1||(it.d&&it.d.toLowerCase().indexOf(q)!==-1)})}
+    renderSheetItems(items);
+  }
   renderCartDrawer();
 }
 
 /* ═══ CART DRAWER ═══ */
-function renderCartDrawer(){
-  var body=document.getElementById('cartDrawerBody');
-  if(cart.length===0){body.innerHTML='<div class="cart-empty-msg">Your order is empty.</div>';return}
-  var h='';
-  cart.forEach(function(c){
-    h+='<div class="cart-item"><div class="cart-item-info"><div class="cart-item-name">'+esc(c.name)+'</div>';
-    if(c.variant)h+='<div class="cart-item-variant">'+esc(c.variant)+'</div>';
-    h+='</div><div class="cart-item-right"><div class="qty-ctrl"><button class="qty-btn qty-minus" data-name="'+esc(c.name)+'" data-variant="'+esc(c.variant)+'">−</button><span class="qty-val">'+c.qty+'</span><button class="qty-btn qty-plus" data-name="'+esc(c.name)+'" data-variant="'+esc(c.variant)+'">+</button></div><span class="cart-item-total">'+fmt(c.qty*c.price)+'</span></div></div>';
-  });
-  body.innerHTML=h;
-}
-
-// Cart drawer toggle
 var cartDrawer=document.getElementById('cartDrawer');
-var cartOverlay=document.getElementById('cartOverlay');
-document.getElementById('cartToggle').addEventListener('click',function(){
-  cartDrawer.classList.add('open');cartOverlay.classList.add('open');renderCartDrawer();
-});
-function closeDrawer(){cartDrawer.classList.remove('open');cartOverlay.classList.remove('open')}
-cartOverlay.addEventListener('click',closeDrawer);
+var cartOv=document.getElementById('cartOverlay');
+function renderCartDrawer(){
+  var b=document.getElementById('cartDrawerBody');
+  if(!cart.length){b.innerHTML='<div class="cart-empty-msg">Your order is empty.</div>';return}
+  var h='';cart.forEach(function(c){
+    h+='<div class="cart-item"><div class="cart-item-info"><div class="cart-item-name">'+esc(c.name)+'</div>'+(c.variant?'<div class="cart-item-variant">'+esc(c.variant)+'</div>':'')+'</div><div class="cart-item-right"><div class="qty-ctrl"><button class="qty-btn qty-minus" data-n="'+esc(c.name)+'" data-v="'+esc(c.variant)+'">−</button><span class="qty-val">'+c.qty+'</span><button class="qty-btn qty-plus" data-n="'+esc(c.name)+'" data-v="'+esc(c.variant)+'">+</button></div><span class="cart-item-total">'+fmt(c.qty*c.price)+'</span></div></div>';
+  });b.innerHTML=h;
+}
+document.getElementById('cartToggle').addEventListener('click',function(){closeSheet();cartDrawer.classList.add('open');cartOv.classList.add('open');renderCartDrawer()});
+function closeDrawer(){cartDrawer.classList.remove('open');cartOv.classList.remove('open')}
+cartOv.addEventListener('click',closeDrawer);
 document.getElementById('cartClear').addEventListener('click',function(){clearCart();closeDrawer()});
 
 /* ═══ SEARCH ═══ */
-document.getElementById('searchInput').addEventListener('input',function(){renderMenu(this.value)});
+document.getElementById('searchInput').addEventListener('input',function(){
+  closeSheet();renderGrid(this.value);
+});
 
 /* ═══ FLOT CHECKOUT ═══ */
-var modal=document.getElementById('modal');
-var frame=document.getElementById('modalFrame');
-var scrollPos=0;
+var modal=document.getElementById('modal'),frame=document.getElementById('modalFrame'),sp=0;
 document.getElementById('payBtn').addEventListener('click',function(){
-  if(cartCount()===0)return;
-  closeDrawer();
-  scrollPos=window.scrollY;
-  frame.src='https://pay.flotme.ai/lagoonda';
-  modal.classList.add('open');
-  document.body.style.overflow='hidden';
+  if(!cartCount())return;closeSheet();closeDrawer();
+  sp=window.scrollY;frame.src='https://pay.flotme.ai/lagoonda';
+  modal.classList.add('open');document.body.style.overflow='hidden';
 });
-function closeModal(){modal.classList.remove('open');frame.src='';document.body.style.overflow='';window.scrollTo(0,scrollPos)}
+function closeModal(){modal.classList.remove('open');frame.src='';document.body.style.overflow='';window.scrollTo(0,sp)}
 document.getElementById('modalClose').addEventListener('click',closeModal);
 modal.addEventListener('click',function(e){if(e.target===modal)closeModal()});
 
 /* ═══ INIT ═══ */
-renderMenu('');
+renderGrid('');
 })();
 </script>
 </body>

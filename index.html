@@ -147,7 +147,16 @@ body{
   padding:14px 20px 12px;border-bottom:1px solid var(--border);flex-shrink:0;
 }
 .sheet-title{font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text)}
-.sheet-close{background:none;border:none;color:var(--text2);font-size:22px;cursor:pointer;padding:4px 8px;line-height:1}
+.sheet-back{
+  display:flex;align-items:center;gap:6px;
+  background:none;border:none;color:var(--text2);
+  font-family:var(--font);font-size:13px;
+  cursor:pointer;padding:6px 10px 6px 4px;margin-left:-4px;
+  border-radius:8px;transition:background .15s,color .15s;
+}
+.sheet-back:hover{background:var(--elevated);color:var(--text)}
+.sheet-back:active{background:var(--border)}
+.sheet-back svg{width:20px;height:20px;fill:currentColor}
 .sheet-body{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:4px 20px 24px;flex:1}
 
 /* ── Item Rows inside sheet ── */
@@ -293,8 +302,8 @@ body{
 <div class="sheet" id="sheet">
   <div class="sheet-handle"></div>
   <div class="sheet-header">
+    <button class="sheet-back" id="sheetClose"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>Back</button>
     <span class="sheet-title" id="sheetTitle"></span>
-    <button class="sheet-close" id="sheetClose">&times;</button>
   </div>
   <div class="sheet-body" id="sheetBody"></div>
 </div>

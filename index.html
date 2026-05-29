@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0A0A0A">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Scarlet Lounge — Mamba Point Hotel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&text=ScarletLounge&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0A0A0A;
+  --surface:#141414;
+  --elevated:#1A1A1A;
+  --text:#F5F5F5;
+  --text2:#8A8A8A;
+  --muted:#555;
+  --accent:#C41E2A;
+  --accent-glow:rgba(196,30,42,0.15);
+  --border:#222;
+  --font:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+}
+html{scroll-behavior:smooth;scroll-padding-top:60px}
+body{
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  padding-bottom:100px;
+  padding-top:env(safe-area-inset-top);
+  padding-left:env(safe-area-inset-left);
+  padding-right:env(safe-area-inset-right);
+}
+
+/* ── Header ── */
+.header{
+  text-align:center;
+  padding:40px 20px 28px;
+}
+.header .wordmark{
+  font-family:'Great Vibes',cursive;
+  font-size:52px;
+  color:var(--accent);
+  line-height:1.1;
+  margin-bottom:4px;
+}
+.header .wordmark-sub{
+  font-size:13px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:var(--text);
+  font-weight:300;
+  margin-bottom:4px;
+  opacity:0.7;
+}
+.header .subtitle{
+  font-size:11px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--text2);
+  margin-bottom:16px;
+}
+.header .contact{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:12px;
+  color:var(--text2);
+  text-decoration:none;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:6px 14px;
+  transition:border-color .2s;
+}
+.header .contact:hover{border-color:var(--accent)}
+.header .contact svg{width:14px;height:14px;fill:var(--accent)}
+
+/* ── Sticky Nav ── */
+.nav{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:var(--bg);
+  border-bottom:1px solid var(--border);
+  padding:0;
+  overflow:hidden;
+}
+.nav-inner{
+  display:flex;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+  gap:0;
+  padding:0 12px;
+}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-inner a{
+  flex-shrink:0;
+  padding:14px 16px;
+  font-size:11px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--text2);
+  text-decoration:none;
+  white-space:nowrap;
+  position:relative;
+  transition:color .2s;
+}
+.nav-inner a.active{
+  color:var(--accent);
+}
+.nav-inner a.active::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:16px;right:16px;
+  height:2px;
+  background:var(--accent);
+  box-shadow:0 0 8px var(--accent-glow);
+  border-radius:1px;
+}
+
+/* ── Menu Sections ── */
+.menu{
+  max-width:480px;
+  margin:0 auto;
+  padding:0 20px;
+}
+.category{
+  padding-top:32px;
+  padding-bottom:8px;
+}
+.category-title{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:24px;
+}
+.category-title::before,
+.category-title::after{
+  content:'';
+  flex:1;
+  height:1px;
+  background:var(--border);
+}
+.category-title h2{
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--text);
+  white-space:nowrap;
+}
+
+/* ── Item Rows ── */
+.item{
+  padding:14px 0;
+  border-bottom:1px solid var(--border);
+}
+.item:last-child{border-bottom:none}
+.item-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:12px;
+}
+.item-name{
+  font-size:15px;
+  font-weight:500;
+  color:var(--text);
+}
+.item-price{
+  font-size:14px;
+  font-weight:600;
+  color:var(--accent);
+  white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+.item-desc{
+  font-size:12.5px;
+  color:var(--text2);
+  margin-top:3px;
+  line-height:1.4;
+}
+.item-serving{
+  font-size:11px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+  margin-top:2px;
+}
+
+/* ── Multi-variant items (shot + bottle) ── */
+.variant{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  padding:4px 0 4px 12px;
+  border-left:1px solid var(--border);
+  margin-top:6px;
+}
+.variant-label{
+  font-size:11px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+}
+.variant-price{
+  font-size:13px;
+  font-weight:600;
+  color:var(--accent);
+  font-variant-numeric:tabular-nums;
+}
+
+/* ── Floating CTA ── */
+.cta{
+  position:fixed;
+  bottom:24px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:200;
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  border-radius:50px;
+  padding:14px 36px;
+  font-family:var(--font);
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  cursor:pointer;
+  box-shadow:0 4px 24px rgba(196,30,42,0.35);
+  transition:transform .15s,box-shadow .15s;
+  padding-bottom:calc(14px + env(safe-area-inset-bottom));
+}
+.cta:active{
+  transform:translateX(-50%) scale(0.96);
+  box-shadow:0 2px 12px rgba(196,30,42,0.25);
+}
+
+/* ── Modal ── */
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  background:rgba(0,0,0,0.85);
+  display:none;
+  align-items:stretch;
+  justify-content:center;
+  opacity:0;
+  transition:opacity .25s ease;
+}
+.modal-overlay.open{
+  display:flex;
+  opacity:1;
+}
+.modal-close{
+  position:absolute;
+  top:12px;right:16px;
+  z-index:1001;
+  background:var(--elevated);
+  border:1px solid var(--border);
+  color:var(--text);
+  width:36px;height:36px;
+  border-radius:50%;
+  font-size:18px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:background .2s;
+}
+.modal-close:hover{background:var(--border)}
+.modal-iframe{
+  width:100%;
+  height:100%;
+  border:none;
+  margin-top:56px;
+}
+
+/* ── Scrollbar (desktop) ── */
+@media(min-width:481px){
+  body{padding-bottom:120px}
+  .menu{padding:0 32px}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="header">
+  <div class="wordmark">Scarlet</div>
+  <div class="wordmark-sub">Lounge</div>
+  <div class="subtitle">Mamba Point Hotel</div>
+  <a href="tel:+23277012345" class="contact">
+    <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.55.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.55 1 1 0 01-.25 1.01l-2.2 2.23z"/></svg>
+    +232 770 12345
+  </a>
+</header>
+
+<!-- ═══ STICKY NAV ═══ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner" id="navInner">
+    <a href="#cocktail" data-cat="cocktail">Cocktail</a>
+    <a href="#non-alcoholic" data-cat="non-alcoholic">Mocktails</a>
+    <a href="#gin" data-cat="gin">Gin</a>
+    <a href="#shots" data-cat="shots">Shots</a>
+    <a href="#tequila" data-cat="tequila">Tequila</a>
+    <a href="#liqueurs" data-cat="liqueurs">Liqueurs</a>
+    <a href="#aperitif" data-cat="aperitif">Aperitif</a>
+    <a href="#brandy" data-cat="brandy">Brandy</a>
+    <a href="#vodka" data-cat="vodka">Vodka</a>
+    <a href="#whiskey" data-cat="whiskey">Whiskey</a>
+    <a href="#champagne" data-cat="champagne">Champagne</a>
+    <a href="#red-wine" data-cat="red-wine">Red Wine</a>
+    <a href="#white-wine" data-cat="white-wine">White Wine</a>
+    <a href="#rose-wine" data-cat="rose-wine">Rosé</a>
+    <a href="#sparkling" data-cat="sparkling">Sparkling</a>
+    <a href="#soft-drinks" data-cat="soft-drinks">Soft Drinks</a>
+    <a href="#energy" data-cat="energy">Energy</a>
+  </div>
+</nav>
+
+<!-- ═══ MENU ═══ -->
+<main class="menu">
+
+  <!-- ── COCKTAIL ── -->
+  <section class="category" id="cocktail">
+    <div class="category-title"><h2>Cocktail</h2></div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Cuba</span><span class="item-price">300</span></div>
+      <div class="item-desc">Dark rum with lime juice &amp; coke</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Scarlet</span><span class="item-price">300</span></div>
+      <div class="item-desc">Campari with orange juice &amp; champagne</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Between the Sheets</span><span class="item-price">300</span></div>
+      <div class="item-desc">White rum, cognac &amp; orange liqueur</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Mimosa</span><span class="item-price">300</span></div>
+      <div class="item-desc">Orange juice with champagne</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Blue Hawaiian</span><span class="item-price">300</span></div>
+      <div class="item-desc">White rum with pineapple juice &amp; coconut milk blue curaçao</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Saharan Martini</span><span class="item-price">300</span></div>
+      <div class="item-desc">Vodka with amarula &amp; frangelico</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Godfather</span><span class="item-price">300</span></div>
+      <div class="item-desc">Scotch whiskey &amp; amaretto</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Fantasy</span><span class="item-price">300</span></div>
+      <div class="item-desc">Amarula, mint &amp; milk</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Cosmopolitan</span><span class="item-price">300</span></div>
+      <div class="item-desc">Vodka triple sec, cranberry juice</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Caipirinha</span><span class="item-price">300</span></div>
+      <div class="item-desc">Cachaça, lime &amp; brown sugar</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Long Island</span><span class="item-price">350</span></div>
+      <div class="item-desc">Vodka, tequila, gin, triple sec, rum with lime juice &amp; coke</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">French 75</span><span class="item-price">300</span></div>
+      <div class="item-desc">Gin, lemon juice &amp; champagne</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Chapman</span><span class="item-price">300</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Margarita</span><span class="item-price">300</span></div>
+      <div class="item-desc">Tequila triple sec, lemon juice</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Tequila Sunrise</span><span class="item-price">300</span></div>
+      <div class="item-desc">Tequila with orange juice &amp; grenadine syrup</div>
+    </div>
+  </section>
+
+  <!-- ── NON-ALCOHOLIC COCKTAILS ── -->
+  <section class="category" id="non-alcoholic">
+    <div class="category-title"><h2>Mocktails</h2></div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Cosmopolitan</span><span class="item-price">300</span></div>
+      <div class="item-desc">Triple sec, cranberry juice</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Chapman</span><span class="item-price">300</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Margarita</span><span class="item-price">300</span></div>
+      <div class="item-desc">Triple sec, lemon juice</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Caipirinha</span><span class="item-price">300</span></div>
+      <div class="item-desc">Lime &amp; brown sugar</div>
+    </div>
+  </section>
+
+  <!-- ── GIN ── -->
+  <section class="category" id="gin">
+    <div class="category-title"><h2>Gin</h2></div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Tanqueray Dry</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">200</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">3,000</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Bombay Sapphire</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">200</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">3,000</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Gordon's</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">200</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">3,000</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Dawa</span><span class="item-price">300</span></div>
+      <div class="item-desc">White rum, cognac &amp; orange liqueur</div>
+    </div>
+  </section>
+
+  <!-- ── SHOTS ── -->
+  <section class="category" id="shots">
+    <div class="category-title"><h2>Shots</h2></div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Irish Flag</span><span class="item-price">200</span></div>
+      <div class="item-desc">Green mint cream</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Mad Dog</span><span class="item-price">200</span></div>
+      <div class="item-desc">Raspberry syrup with vodka &amp; dash tabasco</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">B-52</span><span class="item-price">200</span></div>
+      <div class="item-desc">Coffee liqueur with irish cream &amp; orange liqueur</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Blue Kamikaze</span><span class="item-price">200</span></div>
+      <div class="item-desc">Vodka with blue curaçao &amp; lime juice</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Woo Woo</span><span class="item-price">200</span></div>
+      <div class="item-desc">Peach schnapps with vodka &amp; cranberry juice</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Silver Bullet</span><span class="item-price">200</span></div>
+      <div class="item-desc">Gin with scotch whiskey &amp; lemon twist</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Black Russian</span><span class="item-price">200</span></div>
+      <div class="item-desc">Vodka with coffee liqueur</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Cranberry Cookie</span><span class="item-price">200</span></div>
+      <div class="item-desc">Cranberry juice with disaronno</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Kamikaze</span><span class="item-price">200</span></div>
+      <div class="item-desc">Vodka with orange liqueur &amp; dash of lime juice</div>
+    </div>
+  </section>
+
+  <!-- ── TEQUILA ── -->
+  <section class="category" id="tequila">
+    <div class="category-title"><h2>Tequila</h2></div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Jose Cuervo Gold</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">200</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">5,000</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Jose Cuervo Silver</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">200</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">5,000</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Patrón Silver</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">200</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">5,000</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Patrón Reposado</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">200</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">5,000</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Patrón Añejo</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">200</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">5,000</span></div>
+    </div>
+  </section>
+
+  <!-- ── LIQUEURS ── -->
+  <section class="category" id="liqueurs">
+    <div class="category-title"><h2>Liqueurs</h2></div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Grandmaster</span><span class="item-price">200</span></div>
+      <div class="item-serving">Single shot</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Tia Maria</span><span class="item-price">200</span></div>
+      <div class="item-serving">Single shot</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Southern Comfort</span><span class="item-price">200</span></div>
+      <div class="item-serving">Single shot</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Disaronno</span><span class="item-price">200</span></div>
+      <div class="item-serving">Single shot</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Malibu</span><span class="item-price">200</span></div>
+      <div class="item-serving">Single shot</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Drambuie</span><span class="item-price">200</span></div>
+      <div class="item-serving">Single shot</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Amaretto</span><span class="item-price">200</span></div>
+      <div class="item-serving">Single shot</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Amarula</span><span class="item-price">200</span></div>
+      <div class="item-serving">Single shot</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Baileys</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">200</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">2,500</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Jägermeister</span><span class="item-price">200</span></div>
+      <div class="item-serving">Single shot</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Cointreau</span><span class="item-price">200</span></div>
+      <div class="item-serving">Single shot</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Sambuca</span><span class="item-price">200</span></div>
+      <div class="item-serving">Single shot</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Frangelico</span><span class="item-price">200</span></div>
+      <div class="item-serving">Single shot</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Limoncello</span><span class="item-price">200</span></div>
+      <div class="item-serving">Single shot</div>
+    </div>
+  </section>
+
+  <!-- ── APERITIF ── -->
+  <section class="category" id="aperitif">
+    <div class="category-title"><h2>Aperitif</h2></div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Martini Bianco</span><span class="item-price">200</span></div>
+      <div class="item-serving">Single shot</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Martini Rosso</span><span class="item-price">200</span></div>
+      <div class="item-serving">Single shot</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Martini Dry</span><span class="item-price">200</span></div>
+      <div class="item-serving">Single shot</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Campari</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">200</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">2,500</span></div>
+    </div>
+  </section>
+
+  <!-- ── BRANDY ── -->
+  <section class="category" id="brandy">
+    <div class="category-title"><h2>Brandy</h2></div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Hennessy VS</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">6,000</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Hennessy VSOP</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">350</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">6,500</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Hennessy XO</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">7,000</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Courvoisier VS</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">5,500</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Courvoisier VSOP</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">350</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">5,500</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Courvoisier XO</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">6,000</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Rémy Martin VSOP</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">400</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">7,000</span></div>
+    </div>
+  </section>
+
+  <!-- ── VODKA ── -->
+  <section class="category" id="vodka">
+    <div class="category-title"><h2>Vodka</h2></div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Absolut</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">200</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">3,000</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Grey Goose</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">4,500</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Belvedere</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">4,500</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Smirnoff Red</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">2,750</span></div>
+    </div>
+  </section>
+
+  <!-- ── WHISKEY ── -->
+  <section class="category" id="whiskey">
+    <div class="category-title"><h2>Whiskey</h2></div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Teacher's</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">2,500</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">J&amp;B</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">2,750</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">J&amp;B 15yr</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">2,750</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">JW Red Label</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">2,750</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">White Walker</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">3,000</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Jameson</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">3,000</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Canadian Club</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">3,000</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Jack Daniel's</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">3,250</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Jack Daniel's Honey</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">3,500</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">JW Black Label</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">4,000</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Glenfiddich 12yr</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">4,500</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">JW Double Black</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">5,000</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Swing</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">5,200</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Chivas 25yr</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">5,500</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Chivas 12yr</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">6,000</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Chivas Royal Salute</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">6,500</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Chivas 18yr</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">7,000</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Glenfiddich 15yr</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">7,500</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Glenfiddich 18yr</span></div>
+      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">9,000</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Glenfiddich 21yr</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">10,000</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">JW Blue Label</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">12,000</span></div>
+    </div>
+  </section>
+
+  <!-- ── CHAMPAGNE ── -->
+  <section class="category" id="champagne">
+    <div class="category-title"><h2>Champagne</h2></div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Mumm Brut</span><span class="item-price">3,000</span></div>
+      <div class="item-serving">Bottle</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Mumm Rosé</span><span class="item-price">3,500</span></div>
+      <div class="item-serving">Bottle</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Laurent Perrier Rosé</span><span class="item-price">4,000</span></div>
+      <div class="item-serving">Bottle</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Laurent Perrier Brut</span><span class="item-price">4,500</span></div>
+      <div class="item-serving">Bottle</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Moët &amp; Chandon Brut</span><span class="item-price">5,000</span></div>
+      <div class="item-serving">Bottle</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Moët &amp; Chandon Rosé</span><span class="item-price">5,000</span></div>
+      <div class="item-serving">Bottle</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Moët Ice</span><span class="item-price">5,000</span></div>
+      <div class="item-serving">Bottle</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Dom Pérignon Brut</span><span class="item-price">10,000</span></div>
+      <div class="item-serving">Bottle</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Dom Pérignon Rosé</span><span class="item-price">12,000</span></div>
+      <div class="item-serving">Bottle</div>
+    </div>
+  </section>
+
+  <!-- ── RED WINE ── -->
+  <section class="category" id="red-wine">
+    <div class="category-title"><h2>Red Wine</h2></div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Nederburg Merlot</span></div>
+      <div class="variant"><span class="variant-label">Glass</span><span class="variant-price">200</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">1,500</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Nederburg Cabernet</span></div>
+      <div class="variant"><span class="variant-label">Glass</span><span class="variant-price">200</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">1,500</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Nederburg Baronne</span></div>
+      <div class="variant"><span class="variant-label">Glass</span><span class="variant-price">200</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">1,500</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Nederburg Edelrood</span></div>
+      <div class="variant"><span class="variant-label">Glass</span><span class="variant-price">200</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">1,500</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Château Kefraya Les Bretèches</span><span class="item-price">1,500</span></div>
+      <div class="item-serving">Bottle</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Bordeaux Supérieur</span></div>
+      <div class="variant"><span class="variant-label">Glass</span><span class="variant-price">200</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">1,500</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Scarlet</span><span class="item-price">1,500</span></div>
+      <div class="item-serving">Bottle</div>
+    </div>
+  </section>
+
+  <!-- ── WHITE WINE ── -->
+  <section class="category" id="white-wine">
+    <div class="category-title"><h2>White Wine</h2></div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Nederburg Chardonnay</span></div>
+      <div class="variant"><span class="variant-label">Glass</span><span class="variant-price">200</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">1,500</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Nederburg Sauvignon Blanc</span></div>
+      <div class="variant"><span class="variant-label">Glass</span><span class="variant-price">200</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">1,500</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Château Kefraya Blanc de Blanc</span><span class="item-price">1,500</span></div>
+      <div class="item-serving">Bottle</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Bordeaux Sauvignon</span><span class="item-price">1,500</span></div>
+      <div class="item-serving">Bottle</div>
+    </div>
+  </section>
+
+  <!-- ── ROSÉ WINE ── -->
+  <section class="category" id="rose-wine">
+    <div class="category-title"><h2>Rosé Wine</h2></div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Nederburg Rosé</span></div>
+      <div class="variant"><span class="variant-label">Glass</span><span class="variant-price">200</span></div>
+      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">1,500</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Château Kefraya Rosé 2012</span><span class="item-price">1,500</span></div>
+      <div class="item-serving">Bottle</div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Bordeaux Rosé</span><span class="item-price">1,500</span></div>
+      <div class="item-serving">Bottle</div>
+    </div>
+  </section>
+
+  <!-- ── SPARKLING WINE ── -->
+  <section class="category" id="sparkling">
+    <div class="category-title"><h2>Sparkling Wine</h2></div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Prosecco</span><span class="item-price">2,000</span></div>
+      <div class="item-serving">Bottle</div>
+    </div>
+  </section>
+
+  <!-- ── SOFT DRINKS / JUICE ── -->
+  <section class="category" id="soft-drinks">
+    <div class="category-title"><h2>Soft Drinks &amp; Juice</h2></div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Water</span><span class="item-price">20</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Coke / Fanta / Sprite</span><span class="item-price">60</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Soda</span><span class="item-price">70</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Orange Juice</span><span class="item-price">70</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Apple Juice</span><span class="item-price">70</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Cranberry Juice</span><span class="item-price">70</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Pineapple Juice</span><span class="item-price">70</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Tomato Juice</span><span class="item-price">70</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Tonic</span><span class="item-price">70</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Diet Coke</span><span class="item-price">70</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Perrier</span><span class="item-price">100</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Box Juice</span><span class="item-price">300</span></div>
+    </div>
+  </section>
+
+  <!-- ── ENERGY DRINKS ── -->
+  <section class="category" id="energy">
+    <div class="category-title"><h2>Energy Drinks</h2></div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Atomic</span><span class="item-price">100</span></div>
+    </div>
+    <div class="item">
+      <div class="item-row"><span class="item-name">Red Bull</span><span class="item-price">120</span></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══ FLOATING CTA ═══ -->
+<button class="cta" id="payBtn" aria-label="Pay Bill">&#x1F4B3; PAY BILL</button>
+
+<!-- ═══ CHECKOUT MODAL ═══ -->
+<div class="modal-overlay" id="modal">
+  <button class="modal-close" id="modalClose" aria-label="Close checkout">&times;</button>
+  <iframe class="modal-iframe" id="modalFrame" title="Flot Checkout"></iframe>
+</div>
+
+<script>
+(function(){
+  // ── Active tab tracking via IntersectionObserver ──
+  const sections = document.querySelectorAll('.category');
+  const navLinks = document.querySelectorAll('.nav-inner a');
+  const navInner = document.getElementById('navInner');
+
+  const observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        const id = entry.target.id;
+        navLinks.forEach(function(link){
+          if(link.getAttribute('data-cat') === id){
+            link.classList.add('active');
+            link.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
+    });
+  },{rootMargin:'-60px 0px -70% 0px',threshold:0});
+
+  sections.forEach(function(s){observer.observe(s)});
+
+  // ── Smooth scroll on nav click ──
+  navLinks.forEach(function(link){
+    link.addEventListener('click',function(e){
+      e.preventDefault();
+      var target = document.querySelector(this.getAttribute('href'));
+      if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+
+  // ── Flot Checkout Modal ──
+  var modal = document.getElementById('modal');
+  var frame = document.getElementById('modalFrame');
+  var scrollPos = 0;
+
+  document.getElementById('payBtn').addEventListener('click',function(){
+    scrollPos = window.scrollY;
+    frame.src = 'https://pay.flotme.ai/lagoonda';
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+
+  function closeModal(){
+    modal.classList.remove('open');
+    frame.src = '';
+    document.body.style.overflow = '';
+    window.scrollTo(0, scrollPos);
+  }
+
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  modal.addEventListener('click',function(e){
+    if(e.target === modal) closeModal();
+  });
+})();
+</script>
+</body>
+</html>

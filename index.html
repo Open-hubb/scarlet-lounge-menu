@@ -197,6 +197,11 @@ body{
 .modal-close:hover{background:var(--border)}
 .modal-iframe{width:100%;height:100%;border:none;margin-top:56px}
 
+/* ── Footer ── */
+.footer{text-align:center;padding:24px 16px 12px;font-size:11px;color:var(--muted)}
+.footer a{color:var(--text2);text-decoration:none;transition:color .2s}
+.footer a:hover{color:var(--accent)}
+
 /* ── No results ── */
 .no-results{display:none;text-align:center;padding:40px 20px;color:var(--muted);font-size:14px}
 .no-results.show{display:block}
@@ -234,6 +239,7 @@ body{
 <!-- ═══ CATEGORY GRID ═══ -->
 <div class="grid" id="grid"></div>
 <div class="no-results" id="noResults">No items match your search.</div>
+<footer class="footer">Powered by <a href="https://www.flotme.ai/business" target="_blank" rel="noopener">Flot Business</a></footer>
 
 <!-- ═══ CATEGORY SHEET ═══ -->
 <div class="sheet-overlay" id="sheetOverlay"></div>

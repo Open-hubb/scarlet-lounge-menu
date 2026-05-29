@@ -20,10 +20,13 @@
   --muted:#555;
   --accent:#C41E2A;
   --accent-glow:rgba(196,30,42,0.15);
+  --accent-dim:rgba(196,30,42,0.08);
   --border:#222;
+  --border-light:#2a2a2a;
   --font:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  --radius:12px;
 }
-html{scroll-behavior:smooth;scroll-padding-top:60px}
+html{scroll-behavior:smooth}
 body{
   font-family:var(--font);
   background:var(--bg);
@@ -31,262 +34,194 @@ body{
   line-height:1.5;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
-  padding-bottom:100px;
+  padding-bottom:90px;
   padding-top:env(safe-area-inset-top);
   padding-left:env(safe-area-inset-left);
   padding-right:env(safe-area-inset-right);
 }
 
 /* ── Header ── */
-.header{
-  text-align:center;
-  padding:40px 20px 28px;
-}
-.header .wordmark{
-  font-family:'Great Vibes',cursive;
-  font-size:52px;
-  color:var(--accent);
-  line-height:1.1;
-  margin-bottom:4px;
-}
-.header .wordmark-sub{
-  font-size:13px;
-  letter-spacing:4px;
-  text-transform:uppercase;
-  color:var(--text);
-  font-weight:300;
-  margin-bottom:4px;
-  opacity:0.7;
-}
-.header .subtitle{
-  font-size:11px;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  color:var(--text2);
-  margin-bottom:16px;
-}
-.header .contact{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  font-size:12px;
-  color:var(--text2);
-  text-decoration:none;
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:6px 14px;
-  transition:border-color .2s;
-}
+.header{text-align:center;padding:36px 20px 24px}
+.header .wordmark{font-family:'Great Vibes',cursive;font-size:52px;color:var(--accent);line-height:1.1;margin-bottom:4px}
+.header .wordmark-sub{font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--text);font-weight:300;margin-bottom:4px;opacity:0.7}
+.header .subtitle{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text2);margin-bottom:14px}
+.header .contact{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text2);text-decoration:none;border:1px solid var(--border);border-radius:20px;padding:6px 14px;transition:border-color .2s}
 .header .contact:hover{border-color:var(--accent)}
 .header .contact svg{width:14px;height:14px;fill:var(--accent)}
 
-/* ── Sticky Nav ── */
-.nav{
-  position:sticky;
-  top:0;
-  z-index:100;
-  background:var(--bg);
-  border-bottom:1px solid var(--border);
-  padding:0;
-  overflow:hidden;
+/* ── Search ── */
+.search-wrap{max-width:480px;margin:0 auto 8px;padding:0 16px}
+.search-input{
+  width:100%;padding:10px 14px 10px 38px;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  color:var(--text);font-size:14px;font-family:var(--font);outline:none;
+  transition:border-color .2s;
 }
-.nav-inner{
-  display:flex;
-  overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:none;
-  gap:0;
-  padding:0 12px;
-}
-.nav-inner::-webkit-scrollbar{display:none}
-.nav-inner a{
-  flex-shrink:0;
-  padding:14px 16px;
-  font-size:11px;
-  letter-spacing:1.5px;
-  text-transform:uppercase;
-  color:var(--text2);
-  text-decoration:none;
-  white-space:nowrap;
-  position:relative;
-  transition:color .2s;
-}
-.nav-inner a.active{
-  color:var(--accent);
-}
-.nav-inner a.active::after{
-  content:'';
-  position:absolute;
-  bottom:0;left:16px;right:16px;
-  height:2px;
-  background:var(--accent);
-  box-shadow:0 0 8px var(--accent-glow);
-  border-radius:1px;
-}
+.search-input:focus{border-color:var(--accent)}
+.search-input::placeholder{color:var(--muted)}
+.search-wrap{position:relative}
+.search-wrap svg{position:absolute;left:28px;top:50%;transform:translateY(-50%);width:16px;height:16px;fill:var(--muted);pointer-events:none}
 
-/* ── Menu Sections ── */
-.menu{
-  max-width:480px;
-  margin:0 auto;
-  padding:0 20px;
+/* ── Accordion Menu ── */
+.menu{max-width:480px;margin:0 auto;padding:8px 16px}
+
+.accordion{margin-bottom:6px;border-radius:var(--radius);overflow:hidden;background:var(--surface);border:1px solid var(--border)}
+.accordion-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 18px;cursor:pointer;user-select:none;
+  transition:background .15s;
 }
-.category{
-  padding-top:32px;
-  padding-bottom:8px;
+.accordion-header:hover{background:var(--elevated)}
+.accordion-header:active{background:var(--border)}
+.accordion-title{
+  font-size:13px;font-weight:600;letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--text);
 }
-.category-title{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:24px;
-}
-.category-title::before,
-.category-title::after{
-  content:'';
-  flex:1;
-  height:1px;
-  background:var(--border);
-}
-.category-title h2{
-  font-size:12px;
+.accordion-meta{display:flex;align-items:center;gap:10px}
+.accordion-count{
+  font-size:11px;color:var(--accent);
+  background:var(--accent-dim);
+  padding:2px 8px;border-radius:10px;
   font-weight:600;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  color:var(--text);
-  white-space:nowrap;
 }
+.accordion-chevron{
+  width:20px;height:20px;fill:var(--text2);
+  transition:transform .25s ease;flex-shrink:0;
+}
+.accordion.open .accordion-chevron{transform:rotate(180deg)}
+
+.accordion-body{
+  max-height:0;overflow:hidden;
+  transition:max-height .3s ease;
+}
+.accordion.open .accordion-body{max-height:none}
+.accordion-body-inner{padding:0 18px 12px}
 
 /* ── Item Rows ── */
-.item{
-  padding:14px 0;
-  border-bottom:1px solid var(--border);
-}
+.item{padding:12px 0;border-bottom:1px solid var(--border)}
 .item:last-child{border-bottom:none}
-.item-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:baseline;
-  gap:12px;
-}
-.item-name{
-  font-size:15px;
-  font-weight:500;
-  color:var(--text);
-}
-.item-price{
-  font-size:14px;
-  font-weight:600;
-  color:var(--accent);
-  white-space:nowrap;
-  font-variant-numeric:tabular-nums;
-}
-.item-desc{
-  font-size:12.5px;
-  color:var(--text2);
-  margin-top:3px;
-  line-height:1.4;
-}
-.item-serving{
-  font-size:11px;
-  color:var(--muted);
-  text-transform:uppercase;
-  letter-spacing:0.5px;
-  margin-top:2px;
-}
+.item-main{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.item-info{flex:1;min-width:0}
+.item-name{font-size:14.5px;font-weight:500;color:var(--text)}
+.item-desc{font-size:12px;color:var(--text2);margin-top:2px;line-height:1.4}
+.item-serving{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px}
+.item-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.item-price{font-size:14px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums;white-space:nowrap}
 
-/* ── Multi-variant items (shot + bottle) ── */
+/* ── Add Button ── */
+.add-btn{
+  width:30px;height:30px;border-radius:50%;border:1.5px solid var(--accent);
+  background:transparent;color:var(--accent);font-size:18px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .15s;flex-shrink:0;line-height:1;
+}
+.add-btn:hover{background:var(--accent);color:#fff}
+.add-btn:active{transform:scale(0.9)}
+
+/* ── Qty Controls (replaces + when in cart) ── */
+.qty-ctrl{display:flex;align-items:center;gap:0;flex-shrink:0}
+.qty-btn{
+  width:28px;height:28px;border-radius:50%;border:1.5px solid var(--border-light);
+  background:var(--elevated);color:var(--text);font-size:15px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .15s;line-height:1;
+}
+.qty-btn:hover{border-color:var(--accent);color:var(--accent)}
+.qty-btn:active{transform:scale(0.9)}
+.qty-val{width:28px;text-align:center;font-size:13px;font-weight:600;color:var(--text)}
+
+/* ── Variant rows ── */
 .variant{
-  display:flex;
-  justify-content:space-between;
-  align-items:baseline;
-  padding:4px 0 4px 12px;
-  border-left:1px solid var(--border);
-  margin-top:6px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:6px 0 6px 12px;border-left:1px solid var(--border);margin-top:6px;gap:8px;
 }
-.variant-label{
-  font-size:11px;
-  color:var(--muted);
-  text-transform:uppercase;
-  letter-spacing:0.5px;
-}
-.variant-price{
-  font-size:13px;
-  font-weight:600;
-  color:var(--accent);
-  font-variant-numeric:tabular-nums;
-}
+.variant-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px}
+.variant-right{display:flex;align-items:center;gap:10px}
+.variant-price{font-size:13px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums}
 
-/* ── Floating CTA ── */
-.cta{
-  position:fixed;
-  bottom:24px;
-  left:50%;
-  transform:translateX(-50%);
-  z-index:200;
-  background:var(--accent);
-  color:#fff;
-  border:none;
-  border-radius:50px;
-  padding:14px 36px;
-  font-family:var(--font);
-  font-size:13px;
-  font-weight:700;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  cursor:pointer;
-  box-shadow:0 4px 24px rgba(196,30,42,0.35);
-  transition:transform .15s,box-shadow .15s;
-  padding-bottom:calc(14px + env(safe-area-inset-bottom));
+/* ── Bottom Bar ── */
+.bottom-bar{
+  position:fixed;bottom:0;left:0;right:0;z-index:200;
+  background:var(--surface);border-top:1px solid var(--border);
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+  display:flex;align-items:center;gap:12px;
+  max-width:100%;
 }
-.cta:active{
-  transform:translateX(-50%) scale(0.96);
-  box-shadow:0 2px 12px rgba(196,30,42,0.25);
+.cart-toggle{
+  flex:1;display:flex;align-items:center;justify-content:space-between;
+  background:var(--elevated);border:1px solid var(--border);border-radius:var(--radius);
+  padding:10px 14px;cursor:pointer;min-width:0;
 }
+.cart-toggle-left{display:flex;align-items:center;gap:8px}
+.cart-badge{
+  background:var(--accent);color:#fff;font-size:11px;font-weight:700;
+  width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+}
+.cart-label{font-size:13px;color:var(--text2);white-space:nowrap}
+.cart-total{font-size:14px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
+.pay-btn{
+  background:var(--accent);color:#fff;border:none;border-radius:var(--radius);
+  padding:12px 20px;font-family:var(--font);font-size:12px;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;white-space:nowrap;
+  box-shadow:0 4px 16px rgba(196,30,42,0.3);transition:transform .1s,box-shadow .1s;
+}
+.pay-btn:active{transform:scale(0.96);box-shadow:0 2px 8px rgba(196,30,42,0.2)}
+.bottom-bar.empty .cart-toggle{opacity:0.5;pointer-events:none}
+.bottom-bar.empty .pay-btn{opacity:0.4;pointer-events:none}
+
+/* ── Cart Drawer ── */
+.cart-overlay{
+  position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.6);
+  display:none;opacity:0;transition:opacity .2s;
+}
+.cart-overlay.open{display:block;opacity:1}
+.cart-drawer{
+  position:fixed;bottom:0;left:0;right:0;z-index:301;
+  background:var(--surface);border-top-left-radius:20px;border-top-right-radius:20px;
+  max-height:70vh;display:flex;flex-direction:column;
+  transform:translateY(100%);transition:transform .3s ease;
+}
+.cart-drawer.open{transform:translateY(0)}
+.cart-drawer-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 20px 12px;border-bottom:1px solid var(--border);flex-shrink:0;
+}
+.cart-drawer-title{font-size:15px;font-weight:600;color:var(--text)}
+.cart-clear{
+  font-size:12px;color:var(--accent);background:none;border:none;
+  cursor:pointer;font-family:var(--font);padding:4px 8px;
+}
+.cart-drawer-body{overflow-y:auto;padding:8px 20px 20px;flex:1}
+.cart-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 0;border-bottom:1px solid var(--border);gap:10px;
+}
+.cart-item:last-child{border-bottom:none}
+.cart-item-info{flex:1;min-width:0}
+.cart-item-name{font-size:13.5px;font-weight:500;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cart-item-variant{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px}
+.cart-item-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.cart-item-total{font-size:13px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums;min-width:40px;text-align:right}
+.cart-empty-msg{text-align:center;padding:32px 0;color:var(--muted);font-size:13px}
 
 /* ── Modal ── */
-.modal-overlay{
-  position:fixed;
-  inset:0;
-  z-index:1000;
-  background:rgba(0,0,0,0.85);
-  display:none;
-  align-items:stretch;
-  justify-content:center;
-  opacity:0;
-  transition:opacity .25s ease;
-}
-.modal-overlay.open{
-  display:flex;
-  opacity:1;
-}
-.modal-close{
-  position:absolute;
-  top:12px;right:16px;
-  z-index:1001;
-  background:var(--elevated);
-  border:1px solid var(--border);
-  color:var(--text);
-  width:36px;height:36px;
-  border-radius:50%;
-  font-size:18px;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:background .2s;
-}
+.modal-overlay{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.85);display:none;opacity:0;transition:opacity .25s ease}
+.modal-overlay.open{display:flex;opacity:1;align-items:stretch;justify-content:center}
+.modal-close{position:absolute;top:12px;right:16px;z-index:1001;background:var(--elevated);border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
 .modal-close:hover{background:var(--border)}
-.modal-iframe{
-  width:100%;
-  height:100%;
-  border:none;
-  margin-top:56px;
-}
+.modal-iframe{width:100%;height:100%;border:none;margin-top:56px}
 
-/* ── Scrollbar (desktop) ── */
+/* ── No results ── */
+.no-results{display:none;text-align:center;padding:40px 20px;color:var(--muted);font-size:14px}
+.no-results.show{display:block}
+
+/* ── Desktop ── */
 @media(min-width:481px){
-  body{padding-bottom:120px}
-  .menu{padding:0 32px}
+  body{padding-bottom:100px}
+  .menu{padding:8px 24px}
+  .bottom-bar{justify-content:center}
+  .bottom-bar>*{max-width:440px}
 }
 </style>
 </head>
@@ -303,644 +238,37 @@ body{
   </a>
 </header>
 
-<!-- ═══ STICKY NAV ═══ -->
-<nav class="nav" id="nav">
-  <div class="nav-inner" id="navInner">
-    <a href="#cocktail" data-cat="cocktail">Cocktail</a>
-    <a href="#non-alcoholic" data-cat="non-alcoholic">Mocktails</a>
-    <a href="#gin" data-cat="gin">Gin</a>
-    <a href="#shots" data-cat="shots">Shots</a>
-    <a href="#tequila" data-cat="tequila">Tequila</a>
-    <a href="#liqueurs" data-cat="liqueurs">Liqueurs</a>
-    <a href="#aperitif" data-cat="aperitif">Aperitif</a>
-    <a href="#brandy" data-cat="brandy">Brandy</a>
-    <a href="#vodka" data-cat="vodka">Vodka</a>
-    <a href="#whiskey" data-cat="whiskey">Whiskey</a>
-    <a href="#champagne" data-cat="champagne">Champagne</a>
-    <a href="#red-wine" data-cat="red-wine">Red Wine</a>
-    <a href="#white-wine" data-cat="white-wine">White Wine</a>
-    <a href="#rose-wine" data-cat="rose-wine">Rosé</a>
-    <a href="#sparkling" data-cat="sparkling">Sparkling</a>
-    <a href="#soft-drinks" data-cat="soft-drinks">Soft Drinks</a>
-    <a href="#energy" data-cat="energy">Energy</a>
+<!-- ═══ SEARCH ═══ -->
+<div class="search-wrap">
+  <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+  <input type="text" class="search-input" id="searchInput" placeholder="Search the menu...">
+</div>
+
+<!-- ═══ ACCORDION MENU ═══ -->
+<main class="menu" id="menuContainer"></main>
+<div class="no-results" id="noResults">No items match your search.</div>
+
+<!-- ═══ BOTTOM BAR ═══ -->
+<div class="bottom-bar empty" id="bottomBar">
+  <div class="cart-toggle" id="cartToggle">
+    <div class="cart-toggle-left">
+      <div class="cart-badge" id="cartBadge">0</div>
+      <span class="cart-label">View Order</span>
+    </div>
+    <span class="cart-total" id="cartTotalBottom">0 LE</span>
   </div>
-</nav>
+  <button class="pay-btn" id="payBtn">PAY BILL</button>
+</div>
 
-<!-- ═══ MENU ═══ -->
-<main class="menu">
-
-  <!-- ── COCKTAIL ── -->
-  <section class="category" id="cocktail">
-    <div class="category-title"><h2>Cocktail</h2></div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Cuba</span><span class="item-price">300</span></div>
-      <div class="item-desc">Dark rum with lime juice &amp; coke</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Scarlet</span><span class="item-price">300</span></div>
-      <div class="item-desc">Campari with orange juice &amp; champagne</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Between the Sheets</span><span class="item-price">300</span></div>
-      <div class="item-desc">White rum, cognac &amp; orange liqueur</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Mimosa</span><span class="item-price">300</span></div>
-      <div class="item-desc">Orange juice with champagne</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Blue Hawaiian</span><span class="item-price">300</span></div>
-      <div class="item-desc">White rum with pineapple juice &amp; coconut milk blue curaçao</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Saharan Martini</span><span class="item-price">300</span></div>
-      <div class="item-desc">Vodka with amarula &amp; frangelico</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Godfather</span><span class="item-price">300</span></div>
-      <div class="item-desc">Scotch whiskey &amp; amaretto</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Fantasy</span><span class="item-price">300</span></div>
-      <div class="item-desc">Amarula, mint &amp; milk</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Cosmopolitan</span><span class="item-price">300</span></div>
-      <div class="item-desc">Vodka triple sec, cranberry juice</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Caipirinha</span><span class="item-price">300</span></div>
-      <div class="item-desc">Cachaça, lime &amp; brown sugar</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Long Island</span><span class="item-price">350</span></div>
-      <div class="item-desc">Vodka, tequila, gin, triple sec, rum with lime juice &amp; coke</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">French 75</span><span class="item-price">300</span></div>
-      <div class="item-desc">Gin, lemon juice &amp; champagne</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Chapman</span><span class="item-price">300</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Margarita</span><span class="item-price">300</span></div>
-      <div class="item-desc">Tequila triple sec, lemon juice</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Tequila Sunrise</span><span class="item-price">300</span></div>
-      <div class="item-desc">Tequila with orange juice &amp; grenadine syrup</div>
-    </div>
-  </section>
-
-  <!-- ── NON-ALCOHOLIC COCKTAILS ── -->
-  <section class="category" id="non-alcoholic">
-    <div class="category-title"><h2>Mocktails</h2></div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Cosmopolitan</span><span class="item-price">300</span></div>
-      <div class="item-desc">Triple sec, cranberry juice</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Chapman</span><span class="item-price">300</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Margarita</span><span class="item-price">300</span></div>
-      <div class="item-desc">Triple sec, lemon juice</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Caipirinha</span><span class="item-price">300</span></div>
-      <div class="item-desc">Lime &amp; brown sugar</div>
-    </div>
-  </section>
-
-  <!-- ── GIN ── -->
-  <section class="category" id="gin">
-    <div class="category-title"><h2>Gin</h2></div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Tanqueray Dry</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">200</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">3,000</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Bombay Sapphire</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">200</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">3,000</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Gordon's</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">200</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">3,000</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Dawa</span><span class="item-price">300</span></div>
-      <div class="item-desc">White rum, cognac &amp; orange liqueur</div>
-    </div>
-  </section>
-
-  <!-- ── SHOTS ── -->
-  <section class="category" id="shots">
-    <div class="category-title"><h2>Shots</h2></div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Irish Flag</span><span class="item-price">200</span></div>
-      <div class="item-desc">Green mint cream</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Mad Dog</span><span class="item-price">200</span></div>
-      <div class="item-desc">Raspberry syrup with vodka &amp; dash tabasco</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">B-52</span><span class="item-price">200</span></div>
-      <div class="item-desc">Coffee liqueur with irish cream &amp; orange liqueur</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Blue Kamikaze</span><span class="item-price">200</span></div>
-      <div class="item-desc">Vodka with blue curaçao &amp; lime juice</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Woo Woo</span><span class="item-price">200</span></div>
-      <div class="item-desc">Peach schnapps with vodka &amp; cranberry juice</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Silver Bullet</span><span class="item-price">200</span></div>
-      <div class="item-desc">Gin with scotch whiskey &amp; lemon twist</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Black Russian</span><span class="item-price">200</span></div>
-      <div class="item-desc">Vodka with coffee liqueur</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Cranberry Cookie</span><span class="item-price">200</span></div>
-      <div class="item-desc">Cranberry juice with disaronno</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Kamikaze</span><span class="item-price">200</span></div>
-      <div class="item-desc">Vodka with orange liqueur &amp; dash of lime juice</div>
-    </div>
-  </section>
-
-  <!-- ── TEQUILA ── -->
-  <section class="category" id="tequila">
-    <div class="category-title"><h2>Tequila</h2></div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Jose Cuervo Gold</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">200</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">5,000</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Jose Cuervo Silver</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">200</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">5,000</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Patrón Silver</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">200</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">5,000</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Patrón Reposado</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">200</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">5,000</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Patrón Añejo</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">200</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">5,000</span></div>
-    </div>
-  </section>
-
-  <!-- ── LIQUEURS ── -->
-  <section class="category" id="liqueurs">
-    <div class="category-title"><h2>Liqueurs</h2></div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Grandmaster</span><span class="item-price">200</span></div>
-      <div class="item-serving">Single shot</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Tia Maria</span><span class="item-price">200</span></div>
-      <div class="item-serving">Single shot</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Southern Comfort</span><span class="item-price">200</span></div>
-      <div class="item-serving">Single shot</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Disaronno</span><span class="item-price">200</span></div>
-      <div class="item-serving">Single shot</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Malibu</span><span class="item-price">200</span></div>
-      <div class="item-serving">Single shot</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Drambuie</span><span class="item-price">200</span></div>
-      <div class="item-serving">Single shot</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Amaretto</span><span class="item-price">200</span></div>
-      <div class="item-serving">Single shot</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Amarula</span><span class="item-price">200</span></div>
-      <div class="item-serving">Single shot</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Baileys</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">200</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">2,500</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Jägermeister</span><span class="item-price">200</span></div>
-      <div class="item-serving">Single shot</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Cointreau</span><span class="item-price">200</span></div>
-      <div class="item-serving">Single shot</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Sambuca</span><span class="item-price">200</span></div>
-      <div class="item-serving">Single shot</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Frangelico</span><span class="item-price">200</span></div>
-      <div class="item-serving">Single shot</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Limoncello</span><span class="item-price">200</span></div>
-      <div class="item-serving">Single shot</div>
-    </div>
-  </section>
-
-  <!-- ── APERITIF ── -->
-  <section class="category" id="aperitif">
-    <div class="category-title"><h2>Aperitif</h2></div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Martini Bianco</span><span class="item-price">200</span></div>
-      <div class="item-serving">Single shot</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Martini Rosso</span><span class="item-price">200</span></div>
-      <div class="item-serving">Single shot</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Martini Dry</span><span class="item-price">200</span></div>
-      <div class="item-serving">Single shot</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Campari</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">200</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">2,500</span></div>
-    </div>
-  </section>
-
-  <!-- ── BRANDY ── -->
-  <section class="category" id="brandy">
-    <div class="category-title"><h2>Brandy</h2></div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Hennessy VS</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">6,000</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Hennessy VSOP</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">350</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">6,500</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Hennessy XO</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">7,000</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Courvoisier VS</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">5,500</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Courvoisier VSOP</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">350</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">5,500</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Courvoisier XO</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">6,000</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Rémy Martin VSOP</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">400</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">7,000</span></div>
-    </div>
-  </section>
-
-  <!-- ── VODKA ── -->
-  <section class="category" id="vodka">
-    <div class="category-title"><h2>Vodka</h2></div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Absolut</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">200</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">3,000</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Grey Goose</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">4,500</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Belvedere</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">4,500</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Smirnoff Red</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">2,750</span></div>
-    </div>
-  </section>
-
-  <!-- ── WHISKEY ── -->
-  <section class="category" id="whiskey">
-    <div class="category-title"><h2>Whiskey</h2></div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Teacher's</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">2,500</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">J&amp;B</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">2,750</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">J&amp;B 15yr</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">2,750</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">JW Red Label</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">2,750</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">White Walker</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">3,000</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Jameson</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">3,000</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Canadian Club</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">3,000</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Jack Daniel's</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">3,250</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Jack Daniel's Honey</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">3,500</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">JW Black Label</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">4,000</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Glenfiddich 12yr</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">4,500</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">JW Double Black</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">5,000</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Swing</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">5,200</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Chivas 25yr</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">5,500</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Chivas 12yr</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">6,000</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Chivas Royal Salute</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">6,500</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Chivas 18yr</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">7,000</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Glenfiddich 15yr</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">7,500</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Glenfiddich 18yr</span></div>
-      <div class="variant"><span class="variant-label">Shot</span><span class="variant-price">250</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">9,000</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Glenfiddich 21yr</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">10,000</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">JW Blue Label</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">12,000</span></div>
-    </div>
-  </section>
-
-  <!-- ── CHAMPAGNE ── -->
-  <section class="category" id="champagne">
-    <div class="category-title"><h2>Champagne</h2></div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Mumm Brut</span><span class="item-price">3,000</span></div>
-      <div class="item-serving">Bottle</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Mumm Rosé</span><span class="item-price">3,500</span></div>
-      <div class="item-serving">Bottle</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Laurent Perrier Rosé</span><span class="item-price">4,000</span></div>
-      <div class="item-serving">Bottle</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Laurent Perrier Brut</span><span class="item-price">4,500</span></div>
-      <div class="item-serving">Bottle</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Moët &amp; Chandon Brut</span><span class="item-price">5,000</span></div>
-      <div class="item-serving">Bottle</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Moët &amp; Chandon Rosé</span><span class="item-price">5,000</span></div>
-      <div class="item-serving">Bottle</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Moët Ice</span><span class="item-price">5,000</span></div>
-      <div class="item-serving">Bottle</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Dom Pérignon Brut</span><span class="item-price">10,000</span></div>
-      <div class="item-serving">Bottle</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Dom Pérignon Rosé</span><span class="item-price">12,000</span></div>
-      <div class="item-serving">Bottle</div>
-    </div>
-  </section>
-
-  <!-- ── RED WINE ── -->
-  <section class="category" id="red-wine">
-    <div class="category-title"><h2>Red Wine</h2></div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Nederburg Merlot</span></div>
-      <div class="variant"><span class="variant-label">Glass</span><span class="variant-price">200</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">1,500</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Nederburg Cabernet</span></div>
-      <div class="variant"><span class="variant-label">Glass</span><span class="variant-price">200</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">1,500</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Nederburg Baronne</span></div>
-      <div class="variant"><span class="variant-label">Glass</span><span class="variant-price">200</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">1,500</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Nederburg Edelrood</span></div>
-      <div class="variant"><span class="variant-label">Glass</span><span class="variant-price">200</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">1,500</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Château Kefraya Les Bretèches</span><span class="item-price">1,500</span></div>
-      <div class="item-serving">Bottle</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Bordeaux Supérieur</span></div>
-      <div class="variant"><span class="variant-label">Glass</span><span class="variant-price">200</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">1,500</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Scarlet</span><span class="item-price">1,500</span></div>
-      <div class="item-serving">Bottle</div>
-    </div>
-  </section>
-
-  <!-- ── WHITE WINE ── -->
-  <section class="category" id="white-wine">
-    <div class="category-title"><h2>White Wine</h2></div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Nederburg Chardonnay</span></div>
-      <div class="variant"><span class="variant-label">Glass</span><span class="variant-price">200</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">1,500</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Nederburg Sauvignon Blanc</span></div>
-      <div class="variant"><span class="variant-label">Glass</span><span class="variant-price">200</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">1,500</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Château Kefraya Blanc de Blanc</span><span class="item-price">1,500</span></div>
-      <div class="item-serving">Bottle</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Bordeaux Sauvignon</span><span class="item-price">1,500</span></div>
-      <div class="item-serving">Bottle</div>
-    </div>
-  </section>
-
-  <!-- ── ROSÉ WINE ── -->
-  <section class="category" id="rose-wine">
-    <div class="category-title"><h2>Rosé Wine</h2></div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Nederburg Rosé</span></div>
-      <div class="variant"><span class="variant-label">Glass</span><span class="variant-price">200</span></div>
-      <div class="variant"><span class="variant-label">Bottle</span><span class="variant-price">1,500</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Château Kefraya Rosé 2012</span><span class="item-price">1,500</span></div>
-      <div class="item-serving">Bottle</div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Bordeaux Rosé</span><span class="item-price">1,500</span></div>
-      <div class="item-serving">Bottle</div>
-    </div>
-  </section>
-
-  <!-- ── SPARKLING WINE ── -->
-  <section class="category" id="sparkling">
-    <div class="category-title"><h2>Sparkling Wine</h2></div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Prosecco</span><span class="item-price">2,000</span></div>
-      <div class="item-serving">Bottle</div>
-    </div>
-  </section>
-
-  <!-- ── SOFT DRINKS / JUICE ── -->
-  <section class="category" id="soft-drinks">
-    <div class="category-title"><h2>Soft Drinks &amp; Juice</h2></div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Water</span><span class="item-price">20</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Coke / Fanta / Sprite</span><span class="item-price">60</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Soda</span><span class="item-price">70</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Orange Juice</span><span class="item-price">70</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Apple Juice</span><span class="item-price">70</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Cranberry Juice</span><span class="item-price">70</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Pineapple Juice</span><span class="item-price">70</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Tomato Juice</span><span class="item-price">70</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Tonic</span><span class="item-price">70</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Diet Coke</span><span class="item-price">70</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Perrier</span><span class="item-price">100</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Box Juice</span><span class="item-price">300</span></div>
-    </div>
-  </section>
-
-  <!-- ── ENERGY DRINKS ── -->
-  <section class="category" id="energy">
-    <div class="category-title"><h2>Energy Drinks</h2></div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Atomic</span><span class="item-price">100</span></div>
-    </div>
-    <div class="item">
-      <div class="item-row"><span class="item-name">Red Bull</span><span class="item-price">120</span></div>
-    </div>
-  </section>
-
-</main>
-
-<!-- ═══ FLOATING CTA ═══ -->
-<button class="cta" id="payBtn" aria-label="Pay Bill">&#x1F4B3; PAY BILL</button>
+<!-- ═══ CART DRAWER ═══ -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer-header">
+    <span class="cart-drawer-title">Your Order</span>
+    <button class="cart-clear" id="cartClear">Clear All</button>
+  </div>
+  <div class="cart-drawer-body" id="cartDrawerBody"></div>
+</div>
 
 <!-- ═══ CHECKOUT MODAL ═══ -->
 <div class="modal-overlay" id="modal">
@@ -950,61 +278,318 @@ body{
 
 <script>
 (function(){
-  // ── Active tab tracking via IntersectionObserver ──
-  const sections = document.querySelectorAll('.category');
-  const navLinks = document.querySelectorAll('.nav-inner a');
-  const navInner = document.getElementById('navInner');
+/* ═══ MENU DATA ═══ */
+var MENU=[
+{cat:"Cocktail",count:15,items:[
+{n:"Cuba",d:"Dark rum with lime juice & coke",p:300},
+{n:"Scarlet",d:"Campari with orange juice & champagne",p:300},
+{n:"Between the Sheets",d:"White rum, cognac & orange liqueur",p:300},
+{n:"Mimosa",d:"Orange juice with champagne",p:300},
+{n:"Blue Hawaiian",d:"White rum with pineapple juice & coconut milk blue curaçao",p:300},
+{n:"Saharan Martini",d:"Vodka with amarula & frangelico",p:300},
+{n:"Godfather",d:"Scotch whiskey & amaretto",p:300},
+{n:"Fantasy",d:"Amarula, mint & milk",p:300},
+{n:"Cosmopolitan",d:"Vodka triple sec, cranberry juice",p:300},
+{n:"Caipirinha",d:"Cachaça, lime & brown sugar",p:300},
+{n:"Long Island",d:"Vodka, tequila, gin, triple sec, rum with lime juice & coke",p:350},
+{n:"French 75",d:"Gin, lemon juice & champagne",p:300},
+{n:"Chapman",p:300},
+{n:"Margarita",d:"Tequila triple sec, lemon juice",p:300},
+{n:"Tequila Sunrise",d:"Tequila with orange juice & grenadine syrup",p:300}
+]},
+{cat:"Mocktails",count:4,items:[
+{n:"Cosmopolitan",d:"Triple sec, cranberry juice",p:300},
+{n:"Chapman",p:300},
+{n:"Margarita",d:"Triple sec, lemon juice",p:300},
+{n:"Caipirinha",d:"Lime & brown sugar",p:300}
+]},
+{cat:"Gin",count:4,items:[
+{n:"Tanqueray Dry",v:[{l:"Shot",p:200},{l:"Bottle",p:3000}]},
+{n:"Bombay Sapphire",v:[{l:"Shot",p:200},{l:"Bottle",p:3000}]},
+{n:"Gordon's",v:[{l:"Shot",p:200},{l:"Bottle",p:3000}]},
+{n:"Dawa",d:"White rum, cognac & orange liqueur",p:300}
+]},
+{cat:"Shots",count:9,items:[
+{n:"Irish Flag",d:"Green mint cream",p:200},
+{n:"Mad Dog",d:"Raspberry syrup with vodka & dash tabasco",p:200},
+{n:"B-52",d:"Coffee liqueur with irish cream & orange liqueur",p:200},
+{n:"Blue Kamikaze",d:"Vodka with blue curaçao & lime juice",p:200},
+{n:"Woo Woo",d:"Peach schnapps with vodka & cranberry juice",p:200},
+{n:"Silver Bullet",d:"Gin with scotch whiskey & lemon twist",p:200},
+{n:"Black Russian",d:"Vodka with coffee liqueur",p:200},
+{n:"Cranberry Cookie",d:"Cranberry juice with disaronno",p:200},
+{n:"Kamikaze",d:"Vodka with orange liqueur & dash of lime juice",p:200}
+]},
+{cat:"Tequila",count:5,items:[
+{n:"Jose Cuervo Gold",v:[{l:"Shot",p:200},{l:"Bottle",p:5000}]},
+{n:"Jose Cuervo Silver",v:[{l:"Shot",p:200},{l:"Bottle",p:5000}]},
+{n:"Patrón Silver",v:[{l:"Shot",p:200},{l:"Bottle",p:5000}]},
+{n:"Patrón Reposado",v:[{l:"Shot",p:200},{l:"Bottle",p:5000}]},
+{n:"Patrón Añejo",v:[{l:"Shot",p:200},{l:"Bottle",p:5000}]}
+]},
+{cat:"Liqueurs",count:14,items:[
+{n:"Grandmaster",s:"Single shot",p:200},
+{n:"Tia Maria",s:"Single shot",p:200},
+{n:"Southern Comfort",s:"Single shot",p:200},
+{n:"Disaronno",s:"Single shot",p:200},
+{n:"Malibu",s:"Single shot",p:200},
+{n:"Drambuie",s:"Single shot",p:200},
+{n:"Amaretto",s:"Single shot",p:200},
+{n:"Amarula",s:"Single shot",p:200},
+{n:"Baileys",v:[{l:"Shot",p:200},{l:"Bottle",p:2500}]},
+{n:"Jägermeister",s:"Single shot",p:200},
+{n:"Cointreau",s:"Single shot",p:200},
+{n:"Sambuca",s:"Single shot",p:200},
+{n:"Frangelico",s:"Single shot",p:200},
+{n:"Limoncello",s:"Single shot",p:200}
+]},
+{cat:"Aperitif",count:4,items:[
+{n:"Martini Bianco",s:"Single shot",p:200},
+{n:"Martini Rosso",s:"Single shot",p:200},
+{n:"Martini Dry",s:"Single shot",p:200},
+{n:"Campari",v:[{l:"Shot",p:200},{l:"Bottle",p:2500}]}
+]},
+{cat:"Brandy",count:7,items:[
+{n:"Hennessy VS",v:[{l:"Shot",p:250},{l:"Bottle",p:6000}]},
+{n:"Hennessy VSOP",v:[{l:"Shot",p:350},{l:"Bottle",p:6500}]},
+{n:"Hennessy XO",v:[{l:"Bottle",p:7000}]},
+{n:"Courvoisier VS",v:[{l:"Shot",p:250},{l:"Bottle",p:5500}]},
+{n:"Courvoisier VSOP",v:[{l:"Shot",p:350},{l:"Bottle",p:5500}]},
+{n:"Courvoisier XO",v:[{l:"Bottle",p:6000}]},
+{n:"Rémy Martin VSOP",v:[{l:"Shot",p:400},{l:"Bottle",p:7000}]}
+]},
+{cat:"Vodka",count:4,items:[
+{n:"Absolut",v:[{l:"Shot",p:200},{l:"Bottle",p:3000}]},
+{n:"Grey Goose",v:[{l:"Shot",p:250},{l:"Bottle",p:4500}]},
+{n:"Belvedere",v:[{l:"Bottle",p:4500}]},
+{n:"Smirnoff Red",v:[{l:"Bottle",p:2750}]}
+]},
+{cat:"Whiskey",count:21,items:[
+{n:"Teacher's",v:[{l:"Bottle",p:2500}]},
+{n:"J&B",v:[{l:"Shot",p:250},{l:"Bottle",p:2750}]},
+{n:"J&B 15yr",v:[{l:"Shot",p:250},{l:"Bottle",p:2750}]},
+{n:"JW Red Label",v:[{l:"Shot",p:250},{l:"Bottle",p:2750}]},
+{n:"White Walker",v:[{l:"Shot",p:250},{l:"Bottle",p:3000}]},
+{n:"Jameson",v:[{l:"Shot",p:250},{l:"Bottle",p:3000}]},
+{n:"Canadian Club",v:[{l:"Shot",p:250},{l:"Bottle",p:3000}]},
+{n:"Jack Daniel's",v:[{l:"Shot",p:250},{l:"Bottle",p:3250}]},
+{n:"Jack Daniel's Honey",v:[{l:"Bottle",p:3500}]},
+{n:"JW Black Label",v:[{l:"Shot",p:250},{l:"Bottle",p:4000}]},
+{n:"Glenfiddich 12yr",v:[{l:"Shot",p:250},{l:"Bottle",p:4500}]},
+{n:"JW Double Black",v:[{l:"Shot",p:250},{l:"Bottle",p:5000}]},
+{n:"Swing",v:[{l:"Shot",p:250},{l:"Bottle",p:5200}]},
+{n:"Chivas 25yr",v:[{l:"Bottle",p:5500}]},
+{n:"Chivas 12yr",v:[{l:"Shot",p:250},{l:"Bottle",p:6000}]},
+{n:"Chivas Royal Salute",v:[{l:"Bottle",p:6500}]},
+{n:"Chivas 18yr",v:[{l:"Shot",p:250},{l:"Bottle",p:7000}]},
+{n:"Glenfiddich 15yr",v:[{l:"Bottle",p:7500}]},
+{n:"Glenfiddich 18yr",v:[{l:"Shot",p:250},{l:"Bottle",p:9000}]},
+{n:"Glenfiddich 21yr",v:[{l:"Bottle",p:10000}]},
+{n:"JW Blue Label",v:[{l:"Bottle",p:12000}]}
+]},
+{cat:"Champagne",count:9,items:[
+{n:"Mumm Brut",s:"Bottle",p:3000},
+{n:"Mumm Rosé",s:"Bottle",p:3500},
+{n:"Laurent Perrier Rosé",s:"Bottle",p:4000},
+{n:"Laurent Perrier Brut",s:"Bottle",p:4500},
+{n:"Moët & Chandon Brut",s:"Bottle",p:5000},
+{n:"Moët & Chandon Rosé",s:"Bottle",p:5000},
+{n:"Moët Ice",s:"Bottle",p:5000},
+{n:"Dom Pérignon Brut",s:"Bottle",p:10000},
+{n:"Dom Pérignon Rosé",s:"Bottle",p:12000}
+]},
+{cat:"Red Wine",count:7,items:[
+{n:"Nederburg Merlot",v:[{l:"Glass",p:200},{l:"Bottle",p:1500}]},
+{n:"Nederburg Cabernet",v:[{l:"Glass",p:200},{l:"Bottle",p:1500}]},
+{n:"Nederburg Baronne",v:[{l:"Glass",p:200},{l:"Bottle",p:1500}]},
+{n:"Nederburg Edelrood",v:[{l:"Glass",p:200},{l:"Bottle",p:1500}]},
+{n:"Château Kefraya Les Bretèches",s:"Bottle",p:1500},
+{n:"Bordeaux Supérieur",v:[{l:"Glass",p:200},{l:"Bottle",p:1500}]},
+{n:"Scarlet",s:"Bottle",p:1500}
+]},
+{cat:"White Wine",count:4,items:[
+{n:"Nederburg Chardonnay",v:[{l:"Glass",p:200},{l:"Bottle",p:1500}]},
+{n:"Nederburg Sauvignon Blanc",v:[{l:"Glass",p:200},{l:"Bottle",p:1500}]},
+{n:"Château Kefraya Blanc de Blanc",s:"Bottle",p:1500},
+{n:"Bordeaux Sauvignon",s:"Bottle",p:1500}
+]},
+{cat:"Rosé Wine",count:3,items:[
+{n:"Nederburg Rosé",v:[{l:"Glass",p:200},{l:"Bottle",p:1500}]},
+{n:"Château Kefraya Rosé 2012",s:"Bottle",p:1500},
+{n:"Bordeaux Rosé",s:"Bottle",p:1500}
+]},
+{cat:"Sparkling Wine",count:1,items:[
+{n:"Prosecco",s:"Bottle",p:2000}
+]},
+{cat:"Soft Drinks & Juice",count:12,items:[
+{n:"Water",p:20},{n:"Coke / Fanta / Sprite",p:60},{n:"Soda",p:70},
+{n:"Orange Juice",p:70},{n:"Apple Juice",p:70},{n:"Cranberry Juice",p:70},
+{n:"Pineapple Juice",p:70},{n:"Tomato Juice",p:70},{n:"Tonic",p:70},
+{n:"Diet Coke",p:70},{n:"Perrier",p:100},{n:"Box Juice",p:300}
+]},
+{cat:"Energy Drinks",count:2,items:[
+{n:"Atomic",p:100},{n:"Red Bull",p:120}
+]}
+];
 
-  const observer = new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      if(entry.isIntersecting){
-        const id = entry.target.id;
-        navLinks.forEach(function(link){
-          if(link.getAttribute('data-cat') === id){
-            link.classList.add('active');
-            link.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
-          } else {
-            link.classList.remove('active');
-          }
+/* ═══ CART STATE ═══ */
+var openAccordions={};
+var cart=[];
+function cartKey(name,variant){return name+'|'+(variant||'')}
+function findCart(name,variant){var k=cartKey(name,variant);return cart.find(function(c){return c.key===k})}
+function addToCart(name,price,variant){
+  var c=findCart(name,variant);
+  if(c){c.qty++}else{cart.push({key:cartKey(name,variant),name:name,variant:variant||'',price:price,qty:1})}
+  updateUI();
+}
+function removeFromCart(name,variant){
+  var c=findCart(name,variant);
+  if(c){c.qty--;if(c.qty<=0)cart=cart.filter(function(x){return x!==c})}
+  updateUI();
+}
+function getQty(name,variant){var c=findCart(name,variant);return c?c.qty:0}
+function cartCount(){return cart.reduce(function(s,c){return s+c.qty},0)}
+function cartTotal(){return cart.reduce(function(s,c){return s+c.qty*c.price},0)}
+function clearCart(){cart=[];updateUI()}
+function fmt(n){return n.toLocaleString('en-US')}
+
+/* ═══ RENDER MENU ═══ */
+var container=document.getElementById('menuContainer');
+
+function renderMenu(filter){
+  container.innerHTML='';
+  var anyVisible=false;
+  MENU.forEach(function(cat,ci){
+    var filtered=cat.items;
+    if(filter){
+      var q=filter.toLowerCase();
+      filtered=cat.items.filter(function(it){
+        return it.n.toLowerCase().indexOf(q)!==-1||(it.d&&it.d.toLowerCase().indexOf(q)!==-1)||(it.s&&it.s.toLowerCase().indexOf(q)!==-1);
+      });
+    }
+    if(filtered.length===0)return;
+    anyVisible=true;
+    var acc=document.createElement('div');
+    acc.className='accordion'+((filter||openAccordions[cat.cat])?' open':'');
+    acc.innerHTML='<div class="accordion-header"><span class="accordion-title">'+esc(cat.cat)+'</span><div class="accordion-meta"><span class="accordion-count">'+filtered.length+' item'+(filtered.length!==1?'s':'')+'</span><svg class="accordion-chevron" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg></div></div>';
+    var body=document.createElement('div');
+    body.className='accordion-body';
+    var inner=document.createElement('div');
+    inner.className='accordion-body-inner';
+
+    filtered.forEach(function(it,ii){
+      var itemEl=document.createElement('div');
+      itemEl.className='item';
+      if(it.v){
+        // Multi-variant item
+        var h='<div class="item-info"><span class="item-name">'+esc(it.n)+'</span>';
+        if(it.d)h+='<div class="item-desc">'+esc(it.d)+'</div>';
+        h+='</div>';
+        itemEl.innerHTML='<div class="item-main">'+h+'</div>';
+        it.v.forEach(function(vr){
+          var vEl=document.createElement('div');
+          vEl.className='variant';
+          var qty=getQty(it.n,vr.l);
+          vEl.innerHTML='<span class="variant-label">'+esc(vr.l)+'</span><div class="variant-right"><span class="variant-price">'+fmt(vr.p)+'</span>'+(qty>0?qtyHtml(it.n,vr.l,qty):addBtnHtml(it.n,vr.p,vr.l))+'</div>';
+          itemEl.appendChild(vEl);
         });
+      } else {
+        // Simple item
+        var qty=getQty(it.n,'');
+        var h='<div class="item-main"><div class="item-info"><span class="item-name">'+esc(it.n)+'</span>';
+        if(it.d)h+='<div class="item-desc">'+esc(it.d)+'</div>';
+        if(it.s)h+='<div class="item-serving">'+esc(it.s)+'</div>';
+        h+='</div><div class="item-right"><span class="item-price">'+fmt(it.p)+'</span>'+(qty>0?qtyHtml(it.n,'',qty):addBtnHtml(it.n,it.p,''))+'</div></div>';
+        itemEl.innerHTML=h;
       }
+      inner.appendChild(itemEl);
     });
-  },{rootMargin:'-60px 0px -70% 0px',threshold:0});
 
-  sections.forEach(function(s){observer.observe(s)});
+    body.appendChild(inner);
+    acc.appendChild(body);
+    container.appendChild(acc);
 
-  // ── Smooth scroll on nav click ──
-  navLinks.forEach(function(link){
-    link.addEventListener('click',function(e){
-      e.preventDefault();
-      var target = document.querySelector(this.getAttribute('href'));
-      if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
-    });
+    // Accordion toggle
+    (function(a,name){
+      a.querySelector('.accordion-header').addEventListener('click',function(){
+        a.classList.toggle('open');
+        openAccordions[name]=a.classList.contains('open');
+      });
+    })(acc,cat.cat);
   });
+  document.getElementById('noResults').className='no-results'+(anyVisible?'':' show');
+}
 
-  // ── Flot Checkout Modal ──
-  var modal = document.getElementById('modal');
-  var frame = document.getElementById('modalFrame');
-  var scrollPos = 0;
+function esc(s){if(!s)return'';var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function addBtnHtml(name,price,variant){return '<button class="add-btn" data-name="'+esc(name)+'" data-price="'+price+'" data-variant="'+esc(variant||'')+'">+</button>'}
+function qtyHtml(name,variant,qty){return '<div class="qty-ctrl"><button class="qty-btn qty-minus" data-name="'+esc(name)+'" data-variant="'+esc(variant||'')+'">−</button><span class="qty-val">'+qty+'</span><button class="qty-btn qty-plus" data-name="'+esc(name)+'" data-variant="'+esc(variant||'')+'">+</button></div>'}
 
-  document.getElementById('payBtn').addEventListener('click',function(){
-    scrollPos = window.scrollY;
-    frame.src = 'https://pay.flotme.ai/lagoonda';
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  });
-
-  function closeModal(){
-    modal.classList.remove('open');
-    frame.src = '';
-    document.body.style.overflow = '';
-    window.scrollTo(0, scrollPos);
+/* ═══ EVENT DELEGATION ═══ */
+document.addEventListener('click',function(e){
+  var t=e.target;
+  if(t.classList.contains('add-btn')){
+    addToCart(t.dataset.name,parseInt(t.dataset.price),t.dataset.variant);
+  }else if(t.classList.contains('qty-plus')){
+    addToCart(t.dataset.name,0,t.dataset.variant);
+  }else if(t.classList.contains('qty-minus')){
+    removeFromCart(t.dataset.name,t.dataset.variant);
   }
+});
 
-  document.getElementById('modalClose').addEventListener('click', closeModal);
-  modal.addEventListener('click',function(e){
-    if(e.target === modal) closeModal();
+/* ═══ UPDATE UI ═══ */
+function updateUI(){
+  var count=cartCount(),total=cartTotal();
+  document.getElementById('cartBadge').textContent=count;
+  document.getElementById('cartTotalBottom').textContent=fmt(total)+' LE';
+  document.getElementById('bottomBar').className='bottom-bar'+(count===0?' empty':'');
+  renderMenu(document.getElementById('searchInput').value);
+  renderCartDrawer();
+}
+
+/* ═══ CART DRAWER ═══ */
+function renderCartDrawer(){
+  var body=document.getElementById('cartDrawerBody');
+  if(cart.length===0){body.innerHTML='<div class="cart-empty-msg">Your order is empty.</div>';return}
+  var h='';
+  cart.forEach(function(c){
+    h+='<div class="cart-item"><div class="cart-item-info"><div class="cart-item-name">'+esc(c.name)+'</div>';
+    if(c.variant)h+='<div class="cart-item-variant">'+esc(c.variant)+'</div>';
+    h+='</div><div class="cart-item-right"><div class="qty-ctrl"><button class="qty-btn qty-minus" data-name="'+esc(c.name)+'" data-variant="'+esc(c.variant)+'">−</button><span class="qty-val">'+c.qty+'</span><button class="qty-btn qty-plus" data-name="'+esc(c.name)+'" data-variant="'+esc(c.variant)+'">+</button></div><span class="cart-item-total">'+fmt(c.qty*c.price)+'</span></div></div>';
   });
+  body.innerHTML=h;
+}
+
+// Cart drawer toggle
+var cartDrawer=document.getElementById('cartDrawer');
+var cartOverlay=document.getElementById('cartOverlay');
+document.getElementById('cartToggle').addEventListener('click',function(){
+  cartDrawer.classList.add('open');cartOverlay.classList.add('open');renderCartDrawer();
+});
+function closeDrawer(){cartDrawer.classList.remove('open');cartOverlay.classList.remove('open')}
+cartOverlay.addEventListener('click',closeDrawer);
+document.getElementById('cartClear').addEventListener('click',function(){clearCart();closeDrawer()});
+
+/* ═══ SEARCH ═══ */
+document.getElementById('searchInput').addEventListener('input',function(){renderMenu(this.value)});
+
+/* ═══ FLOT CHECKOUT ═══ */
+var modal=document.getElementById('modal');
+var frame=document.getElementById('modalFrame');
+var scrollPos=0;
+document.getElementById('payBtn').addEventListener('click',function(){
+  if(cartCount()===0)return;
+  closeDrawer();
+  scrollPos=window.scrollY;
+  frame.src='https://pay.flotme.ai/lagoonda';
+  modal.classList.add('open');
+  document.body.style.overflow='hidden';
+});
+function closeModal(){modal.classList.remove('open');frame.src='';document.body.style.overflow='';window.scrollTo(0,scrollPos)}
+document.getElementById('modalClose').addEventListener('click',closeModal);
+modal.addEventListener('click',function(e){if(e.target===modal)closeModal()});
+
+/* ═══ INIT ═══ */
+renderMenu('');
 })();
 </script>
 </body>

@@ -244,6 +244,18 @@ body{
 .cart-item-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
 .cart-item-total{font-size:13px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums;min-width:40px;text-align:right}
 .cart-empty-msg{text-align:center;padding:32px 0;color:var(--muted);font-size:13px}
+.cart-footer{border-top:1px solid var(--border);margin-top:12px;padding-top:14px}
+.cart-footer-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.cart-footer-label{font-size:15px;font-weight:600;color:var(--text)}
+.cart-footer-total{font-size:18px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+.cart-checkout-btn{
+  width:100%;padding:14px;border:none;border-radius:var(--radius-sm);
+  background:var(--accent);color:#fff;font-family:var(--font);
+  font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  cursor:pointer;box-shadow:0 4px 16px rgba(196,30,42,0.3);
+  transition:transform .1s,box-shadow .1s;
+}
+.cart-checkout-btn:active{transform:scale(0.97);box-shadow:0 2px 8px rgba(196,30,42,0.2)}
 
 /* ── Checkout Modal ── */
 .modal-overlay{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.85);display:none;opacity:0;transition:opacity .25s ease}
@@ -602,7 +614,6 @@ function updateFab(){
   cartFab.className='cart-fab'+(currentSheet!==null?' show':'')+(count===0?' empty':'');
 }
 cartFab.addEventListener('click',function(){
-  closeSheet();
   if(cartCount()>0){
     cartDrawer.classList.add('open');cartOv.classList.add('open');renderCartDrawer();
   }
@@ -634,10 +645,20 @@ function renderCartDrawer(){
   if(!cart.length){b.innerHTML='<div class="cart-empty-msg">Your order is empty.</div>';return}
   var h='';cart.forEach(function(c){
     h+='<div class="cart-item"><div class="cart-item-info"><div class="cart-item-name">'+esc(c.name)+'</div>'+(c.variant?'<div class="cart-item-variant">'+esc(c.variant)+'</div>':'')+'</div><div class="cart-item-right"><div class="qty-ctrl"><button class="qty-btn qty-minus" data-n="'+esc(c.name)+'" data-v="'+esc(c.variant)+'">−</button><span class="qty-val">'+c.qty+'</span><button class="qty-btn qty-plus" data-n="'+esc(c.name)+'" data-v="'+esc(c.variant)+'">+</button></div><span class="cart-item-total">'+fmt(c.qty*c.price)+'</span></div></div>';
-  });b.innerHTML=h;
+  });
+  h+='<div class="cart-footer"><div class="cart-footer-row"><span class="cart-footer-label">Total</span><span class="cart-footer-total">'+fmt(cartTotal())+' LE</span></div><button class="cart-checkout-btn" id="cartCheckoutBtn">Proceed to Checkout</button></div>';
+  b.innerHTML=h;
+  document.getElementById('cartCheckoutBtn').addEventListener('click',function(){
+    closeDrawer();closeSheet();
+    sp=window.scrollY;frame.src='https://pay.flotme.ai/lagoonda?amount='+cartTotal();
+    modal.classList.add('open');document.body.style.overflow='hidden';
+  });
 }
 document.getElementById('cartToggle').addEventListener('click',function(){closeSheet();cartDrawer.classList.add('open');cartOv.classList.add('open');renderCartDrawer()});
-function closeDrawer(){cartDrawer.classList.remove('open');cartOv.classList.remove('open')}
+function closeDrawer(){
+  cartDrawer.classList.remove('open');cartOv.classList.remove('open');
+  if(currentSheet!==null){document.body.style.overflow='hidden'}
+}
 cartOv.addEventListener('click',closeDrawer);
 document.getElementById('cartClear').addEventListener('click',function(){clearCart();closeDrawer()});
 

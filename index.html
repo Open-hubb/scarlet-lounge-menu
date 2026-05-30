@@ -220,7 +220,6 @@ body{
 }
 .pay-btn:active{transform:scale(0.96);box-shadow:0 2px 8px rgba(196,30,42,0.2)}
 .bottom-bar.empty .cart-toggle{opacity:0.5;pointer-events:none}
-.bottom-bar.empty .pay-btn{opacity:0.4;pointer-events:none}
 
 /* ── Cart Drawer ── */
 .cart-overlay{position:fixed;inset:0;z-index:400;background:rgba(0,0,0,0.6);display:none;opacity:0;transition:opacity .2s}
@@ -484,7 +483,7 @@ var MENU=[
 {n:"Pineapple Juice",p:70},{n:"Tomato Juice",p:70},{n:"Tonic",p:70},
 {n:"Diet Coke",p:70},{n:"Perrier",p:100},{n:"Box Juice",p:300}
 ]},
-{cat:"Energy Drinks",img:"https://images.unsplash.com/photo-1622543925917-763c34d1a86e?w=400&h=300&fit=crop&q=60",items:[
+{cat:"Energy Drinks",img:"https://images.unsplash.com/photo-1530541930197-e065e5025489?w=400&h=300&fit=crop&q=60",items:[
 {n:"Atomic",p:100},{n:"Red Bull",p:120}
 ]}
 ];
@@ -650,7 +649,7 @@ document.getElementById('searchInput').addEventListener('input',function(){
 /* ═══ FLOT CHECKOUT ═══ */
 var modal=document.getElementById('modal'),frame=document.getElementById('modalFrame'),sp=0;
 document.getElementById('payBtn').addEventListener('click',function(){
-  if(!cartCount())return;closeSheet();closeDrawer();
+  closeSheet();closeDrawer();
   sp=window.scrollY;frame.src='https://pay.flotme.ai/lagoonda?amount='+cartTotal();
   modal.classList.add('open');document.body.style.overflow='hidden';
 });

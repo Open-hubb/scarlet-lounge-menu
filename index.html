@@ -650,7 +650,7 @@ function renderCartDrawer(){
   b.innerHTML=h;
   document.getElementById('cartCheckoutBtn').addEventListener('click',function(){
     closeDrawer();closeSheet();
-    sp=window.scrollY;frame.src='https://pay.flotme.ai/lagoonda?amount='+cartTotal();
+    sp=window.scrollY;frame.src='https://pay.flotme.ai/scarletlounge?amount='+cartTotal();
     modal.classList.add('open');document.body.style.overflow='hidden';
   });
 }
@@ -671,7 +671,7 @@ document.getElementById('searchInput').addEventListener('input',function(){
 var modal=document.getElementById('modal'),frame=document.getElementById('modalFrame'),sp=0;
 document.getElementById('payBtn').addEventListener('click',function(){
   closeSheet();closeDrawer();
-  sp=window.scrollY;frame.src='https://pay.flotme.ai/lagoonda?amount='+cartTotal();
+  sp=window.scrollY;frame.src='https://pay.flotme.ai/scarletlounge?amount='+cartTotal();
   modal.classList.add('open');document.body.style.overflow='hidden';
 });
 function closeModal(){modal.classList.remove('open');frame.src='';document.body.style.overflow='';window.scrollTo(0,sp)}

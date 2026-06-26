@@ -283,6 +283,8 @@ body{
   .grid{grid-template-columns:repeat(4,1fr);max-width:740px}
 }
 </style>
+<!-- Flot dashboard Web Analytics tracker -->
+<script defer src="https://dashboard.flotme.ai/api/public/tracker.js?id=ca3abf78-bec4-4be6-b81c-8594d6c3c3c5"></script>
 </head>
 <body>
 
@@ -680,6 +682,28 @@ modal.addEventListener('click',function(e){if(e.target===modal)closeModal()});
 
 /* ═══ INIT ═══ */
 renderGrid('');
+
+/* Then swap to the Flot dashboard CMS menu if available (inline data is the fallback). */
+(function(){
+  var API='https://dashboard.flotme.ai/api/public/menu/ca3abf78-bec4-4be6-b81c-8594d6c3c3c5';
+  function adapt(d){
+    return (d.sections||[]).map(function(s){
+      return { cat:s.title, img:s.image||'', items:(s.items||[]).map(function(i){
+        var it={n:i.name};
+        if(i.description)it.d=i.description;
+        if(i.subHeader)it.s=i.subHeader;
+        if(i.variants&&i.variants.length)it.v=i.variants.map(function(v){return {l:v.label,p:v.price};});
+        else it.p=i.price;
+        return it;
+      })};
+    });
+  }
+  fetch(API).then(function(r){return r.ok?r.json():null;}).then(function(d){
+    if(d&&d.sections&&d.sections.length){
+      try{ var a=adapt(d); if(a.length){ MENU=a; var q=document.getElementById('searchInput'); renderGrid(q?q.value:''); } }catch(e){}
+    }
+  }).catch(function(){});
+})();
 })();
 </script>
 </body>

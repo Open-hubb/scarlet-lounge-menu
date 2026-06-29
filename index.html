@@ -703,13 +703,23 @@ renderGrid('');
     if(b.subtitle){ var st=document.getElementById('brandSubtitle'); if(st)st.textContent=b.subtitle; }
     if(b.phone){ var ph=document.getElementById('contactPhone'); var cl=document.getElementById('contactLink'); if(ph)ph.textContent=b.phone; if(cl)cl.href='tel:'+b.phone.replace(/\s/g,''); }
   }
-  fetch(API).then(function(r){return r.ok?r.json():null;}).then(function(d){
+  function applyDoc(d){
     if(!d)return;
     applyBranding(d.branding);
     if(d.sections&&d.sections.length){
       try{ var a=adapt(d); if(a.length){ MENU=a; var q=document.getElementById('searchInput'); renderGrid(q?q.value:''); } }catch(e){}
     }
-  }).catch(function(){});
+  }
+  fetch(API).then(function(r){return r.ok?r.json():null;}).then(applyDoc).catch(function(){});
+  // Live preview: the Flot dashboard editor streams unsaved edits via postMessage.
+  if (window.parent !== window) {
+    window.addEventListener('message', function(e){
+      if (e.origin !== 'https://dashboard.flotme.ai') return;
+      if (!e.data || e.data.source !== 'flot-dashboard' || e.data.type !== 'menu-preview' || !e.data.menu) return;
+      applyDoc(e.data.menu);
+    });
+    window.parent.postMessage({ source:'flot-site', type:'preview-ready' }, '*');
+  }
 })();
 })();
 </script>
